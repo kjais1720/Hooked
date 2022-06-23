@@ -4,8 +4,10 @@ import "./index.css"
 import App from "./App"
 import { Provider } from "react-redux"
 import { store } from "./store"
+import { configureAxios } from "utils"
 import { BrowserRouter as Router } from "react-router-dom"
 const root = ReactDOM.createRoot(document.getElementById("root"))
+configureAxios()
 root.render(
     <React.StrictMode>
         <Provider store={store}>
