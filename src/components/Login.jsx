@@ -1,7 +1,6 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
-import { LoginIllustration } from "components";
 export function Login({ formik }) {
   const [showPassword, toggleShowPassword] = useReducer(
     (state) => !state,
@@ -11,13 +10,6 @@ export function Login({ formik }) {
     <div className="min-h-screen bg-primary p-4 md:p-16">
       <div className="rounded-2xl bg-light-100 dark:bg-dark-100 lg:flex">
         <div className=" md:rounded-r-0 rounded-2xl bg-light-200 p-8 dark:bg-dark-200 md:rounded-l-2xl xl:max-w-screen-sm">
-          {/* <div className="py-12 bg-light-200 dark:bg-dark-200 flex justify-center lg:justify-start lg:px-12">
-            <div className="cursor-pointer flex items-center">
-              <div className="text-2xl text-primary tracking-wide ml-2 font-semibold">
-                Social Gully
-              </div>
-            </div>
-          </div> */}
           <div className=" bg-light-200 px-4 dark:bg-dark-200 sm:px-24 md:px-4 lg:px-12 xl:max-w-2xl xl:px-24">
             <h2
               className="xl:text-bold text-center font-display text-4xl font-semibold text-primary lg:text-left
@@ -106,7 +98,7 @@ export function Login({ formik }) {
         </div>
         <div className="hidden flex-1 items-center justify-center rounded-r-2xl bg-light-100 dark:bg-dark-100 lg:flex ">
           <div className="max-w-xs transform cursor-pointer duration-200 hover:scale-110">
-            <LoginIllustration />
+            <img src="/assets/loginIllustration.svg" alt="A man opening a door"/>
           </div>
         </div>
       </div>

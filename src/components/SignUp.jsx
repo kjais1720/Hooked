@@ -1,6 +1,5 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useReducer } from "react";
-import { LoginIllustration } from "components";
 import { Link } from "react-router-dom";
 export function SignUp({ formik }) {
   const [showPassword, toggleShowPassword] = useReducer(
@@ -169,7 +168,7 @@ export function SignUp({ formik }) {
         </div>
         <div className="hidden flex-1 items-center justify-center rounded-r-2xl bg-light-100 dark:bg-dark-200 lg:flex ">
           <div className="max-w-xs transform cursor-pointer duration-200 hover:scale-110">
-            <LoginIllustration />
+            <img src="/assets/loginIllustration" alt="a man opening a door"/>
           </div>
         </div>
       </div>
