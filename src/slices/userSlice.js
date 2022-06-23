@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { dispatch } from "react-hot-toast/dist/core/store";
 import {
   authenticateUser,
   getCurrentUserFromBackend,
@@ -24,6 +25,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
+      
       state.isLoggedIn = true;
       state.currentUser = action.payload?.user ?? {};
     },
@@ -69,3 +71,6 @@ export const userSlice = createSlice({
 export const getCurrentUser = (state) => state.user.currentUser;
 export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
+
+// dispatch(login(userObject));
+//dispatch({type:"login",payload(userObject)})
