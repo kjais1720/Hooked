@@ -1,8 +1,10 @@
 import { FaSearch } from "react-icons/fa";
+import { ProfileCard } from "components";
 import { useSelector } from "react-redux";
 export function RightSideBar() {
   const { allUsers } = useSelector((state) => state.user);
   const usersToShow = allUsers.slice(0, 4);
+
   return (
     <div>
       <div className="hidden md:block m-2 rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 md:sticky md:top-2 ">
@@ -25,7 +27,7 @@ export function RightSideBar() {
             <button className="ml-auto text-primary">Show More</button>
           </div>
           {usersToShow?.map((user) => (
-            <div>{user.firstname}</div>
+            <ProfileCard key={user._id} {...user} />
           ))}
         </div>
       </div>
