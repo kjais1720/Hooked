@@ -3,9 +3,9 @@ import { getUserById, getCurrentUser } from "slices";
 
 export function ProfileImage({ userId, size, bgShade }) {
   const imageSizes = {
-    sm: 4,
-    md: 12,
-    lg: 32,
+    sm: "1rem",
+    md: "3rem",
+    lg: "8rem",
   };
   const fontSizes = {
       sm:"text-xl",
@@ -26,7 +26,8 @@ export function ProfileImage({ userId, size, bgShade }) {
   const { firstname, lastname, profilePicture } = user;
   return profilePicture ? (
     <img
-      className={`h-${imageSizes[size]} w-${imageSizes[size]} rounded-full object-cover`}
+      className={`rounded-full object-cover`}
+      style={{height:imageSizes[size], width:imageSizes[size]}}
       src={profilePicture}
       alt={`${firstname} ${lastname}`}
     />
