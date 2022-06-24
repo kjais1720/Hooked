@@ -140,6 +140,7 @@ export function Profile({
               openEditModal={openEditModal}
               isUserFollowed={isUserFollowed}
               followUnfollowUser={followUnfollowUser}
+              userId={_id}
             />
           </div>
           {isCurrentUserProfile ? " " : <MutualFollowersBar />}
