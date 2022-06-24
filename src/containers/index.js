@@ -6,3 +6,4 @@ export { CurrentUserProfile } from "./CurrentUserProfile";
 export { CommonUserProfile } from "./CommonUserProfile";
 export { Timeline } from "./Timeline";
 export { SinglePost } from "./SinglePost";
+export { NotFound } from "./NotFound"
