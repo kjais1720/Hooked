@@ -1,5 +1,4 @@
 import { FaSearch } from "react-icons/fa";
-import { ProfileCard } from "components";
 import { useSelector } from "react-redux";
 export function RightSideBar() {
   const { allUsers } = useSelector((state) => state.user);

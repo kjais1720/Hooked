@@ -7,6 +7,7 @@ import {
   CommonUserProfile,
   Timeline,
   SinglePost,
+  NotFound
 } from "containers";
 import { Routes, Route } from "react-router";
 import { RequiresAuth } from "./RequiresAuth";
@@ -25,6 +26,7 @@ export function AllRoutes() {
       </Route>
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/signup" element={<SignUp />} />
+      <Route path="*" element={<NotFound/>}/>
     </Routes>
   );
 }

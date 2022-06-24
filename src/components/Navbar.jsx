@@ -1,5 +1,6 @@
-import { FaHome, FaSearch, FaPlus, FaBell } from "react-icons/fa";
+import { FaHome, FaSearch, FaPlus, FaBell, FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+
 export function Navbar() {
   return (
     <div className="relative z-10">
@@ -42,11 +43,7 @@ export function Navbar() {
             className="md:text-md flex items-center gap-2 rounded-2xl p-4 hover:bg-gray-400/25 md:text-xl"
             to="/profile"
           >
-            <img
-              className="w-8 rounded-full"
-              src="/assets/avatar-1.png"
-              alt="Krituraj Anand Profile"
-            />
+            <FaUser/>
             <p className="hidden lg:block">Profile</p>
           </NavLink>
         </nav>

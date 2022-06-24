@@ -9,3 +9,4 @@ export { ProfileImage } from "./ProfileImage";
 export { SkeletonLoader } from "./SkeletonLoader";
 export { Navbar } from "./Navbar"
 export { RightSideBar } from "./RightSideBar"
+export { Spinner } from "./Spinner"

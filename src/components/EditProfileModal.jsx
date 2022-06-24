@@ -4,6 +4,7 @@ import { isFileSizeInValid } from "utils";
 import { toast } from "react-hot-toast";
 import { updateCurrentUser } from "services";
 import { useDispatch } from "react-redux";
+import { ProfileImage } from "components";
 
 export function EditProfileModal({ user, closeModal }) {
   const [formData, setFormData] = useState({ ...user });
@@ -42,7 +43,7 @@ export function EditProfileModal({ user, closeModal }) {
     data.append("lastname", lastname);
     data.append("about", about);
     data.append("location", location);
-    data.append("website",website)
+    data.append("website", website);
     if (images.profilePicture) {
       data.append("profilePicture", images.profilePicture);
     }
@@ -55,7 +56,7 @@ export function EditProfileModal({ user, closeModal }) {
   return (
     <div
       onClick={closeModal}
-      className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-auto bg-gray-800/50"
+      className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
     >
       <form
         onSubmit={submitHandler}
@@ -69,18 +70,24 @@ export function EditProfileModal({ user, closeModal }) {
           <button
             type="button"
             onClick={closeModal}
-            className="text-md absolute left-0 flex h-[2em] w-[2em] items-center justify-center rounded-full bg-light-200 p-2 align-middle font-extrabold md:relative"
+            className="text-md flex h-[2em] w-[2em] items-center justify-center rounded-full bg-light-200 p-2 align-middle font-extrabold dark:bg-dark-200 md:relative"
           >
             ✕
           </button>
-          <h2 className="text-center  text-gray-600 dark:text-primary md:text-left">
+          <h2 className="text-center text-2xl text-gray-600 dark:text-primary md:text-left">
             Edit Profile
           </h2>
+          <button
+            className="w-50 ml-auto rounded-2xl bg-primary px-4 py-2 text-dark-200"
+            type="submit"
+          >
+            Save
+          </button>
         </div>
         <div className="relative">
           <img
             className="h-[20vh] w-full rounded-2xl object-cover md:h-[25vh]"
-            src={formData.coverPicture ?? "/assets/cover.jpg"}
+            src={formData.coverPicture || "/assets/cover.jpg"}
             alt="Cover"
           />
           <label
@@ -100,13 +107,19 @@ export function EditProfileModal({ user, closeModal }) {
           />
         </div>
         <div className="-mb-8 flex -translate-y-1/2">
-          <img
-            className="m-auto h-28 w-28 rounded-full border-8
+          {formData.profilePicture ? (
+            <img
+              className="m-auto h-32 w-32 rounded-full border-8
                                     border-light-200 object-cover dark:border-dark-100
                                     "
-            src={formData.profilePicture ?? "/assets/avatar-1.png"}
-            alt="Profile"
-          />
+              src={formData.profilePicture}
+              alt="Profile"
+            />
+          ) : (
+            <div className="m-auto">
+              <ProfileImage userId={formData._id} size="lg" bgShade="darker" />
+            </div>
+          )}
           <label
             htmlFor="proPic"
             className="absolute bottom-0 right-0 cursor-pointer text-lg text-gray-600 dark:text-gray-200"
@@ -121,7 +134,7 @@ export function EditProfileModal({ user, closeModal }) {
             hidden
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <div className="flex flex-grow flex-col gap-2">
             <label className="dark:text-gray-200">Firstname</label>
             <input
@@ -132,7 +145,7 @@ export function EditProfileModal({ user, closeModal }) {
               type="text"
             />
           </div>
-          <div className="flex flex-grow flex-col gap-2">
+          <div className="flex flex-grow flex-col gap-2 mt-4 md:mt-0">
             <label className="dark:text-gray-200">Lastname</label>
             <input
               onChange={textChangeHandler}
@@ -171,14 +184,6 @@ export function EditProfileModal({ user, closeModal }) {
             onChange={textChangeHandler}
             className="rounded-2xl bg-light-100 p-2 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
           ></textarea>
-        </div>
-        <div>
-          <button
-            className="w-50 rounded-2xl bg-primary px-4 py-2 text-dark-200"
-            type="submit"
-          >
-            Save
-          </button>
         </div>
       </form>
     </div>

@@ -56,7 +56,7 @@ export function Profile({
         >
           <FaArrowLeft />
         </button>
-        <h2 className="text-2xl font-medium text-gray-600 dark:text-gray-200">
+        <h2 className="text-xl font-medium text-gray-600 dark:text-gray-200">
           {firstname} {lastname}
         </h2>
         {isCurrentUserProfile && (
@@ -72,7 +72,7 @@ export function Profile({
         <div className="relative ">
           <figure className="h-full w-full px-2">
             <img
-              className="h-[30vh] rounded-2xl object-cover md:h-[40vh]"
+              className="h-[25vh] rounded-2xl object-cover md:h-[40vh]"
               src={coverPicture || "/assets/cover.jpg"}
               alt="profile cover"
             />
@@ -107,7 +107,7 @@ export function Profile({
                 rel="noopener noreferrer"
                 className="flex cursor-pointer items-center gap-1 text-indigo-600"
               >
-                <FaLink /> {website || "https://xyz.com"}
+                <FaLink /> {website ?? "https://xyz.com"}
               </a>
             </div>
             <p className="text-sm dark:text-gray-300">
