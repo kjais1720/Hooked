@@ -6,8 +6,6 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        // "primary":"hsl(199, 75%, 47%)",
-        // "secondary":"hsl(174, 86%, 54%)", 
         "primary":"hsl(174, 86%, 44%)", 
         dark:{
           100: "hsl(196, 100%, 9%)",
@@ -21,11 +19,11 @@ module.exports = {
         "light-2":"hsl(223, 56%, 94%)",
       },  
       fontFamily: {
-        'sans': ['"Poppins"','ui-sans-serif', 'system-ui'],
+        'sans': ['Comfortaa','ui-sans-serif', 'system-ui'],
         'serif': ['ui-serif', 'Georgia'],
         'mono': ['ui-monospace', 'SFMono-Regular'],
-        'display': ['Poppins'],
-        'body': ['"Poppins"'],
+        'display': ['Comfortaa'],
+        'body': ['Comfortaa'],
       }
     },
   },
