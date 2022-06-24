@@ -19,3 +19,11 @@ export const getCurrentUserFromBackend = createAsyncThunk(
     return data;
   }
 );
+
+export const updateCurrentUser = createAsyncThunk(
+  "user/updatCurrentUser",
+  async (formData) => {
+    const { data } = await axios.put("/user", formData);
+    return data;
+  }
+);
