@@ -1,15 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  authenticateUser,
-  getCurrentUserFromBackend,
-} from "services";
+import { authenticateUser, getCurrentUserFromBackend, updateCurrentUser } from "services";
 const initialState = {
   currentUser: {},
   allUsers: [],
   isLoggedIn: localStorage.getItem("USER_TOKEN") && true,
   status: {
-    type:"",
-    value:"idle"
+    type: "",
+    value: "idle",
   },
   error: {
     status: 0,
@@ -24,21 +21,20 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      
       state.isLoggedIn = true;
       state.currentUser = action.payload?.user ?? {};
     },
     logout: () => {
       localStorage.removeItem("USER_TOKEN");
       localStorage.removeItem("USER_ID");
-      return {...initialState, isLoggedIn:false};
+      return { ...initialState, isLoggedIn: false };
     },
   },
   extraReducers: (builder) => {
     builder
       //Login/Signup
       .addCase(authenticateUser.pending, (state) => {
-        state.status.type = "authentication"
+        state.status.type = "authentication";
         state.status.value = "pending";
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {
@@ -55,7 +51,7 @@ export const userSlice = createSlice({
       })
       //Get Current User
       .addCase(getCurrentUserFromBackend.pending, (state) => {
-        state.status.type="getUser"
+        state.status.type = "getCurrentUser";
         state.status.value = "pending";
       })
       .addCase(getCurrentUserFromBackend.fulfilled, (state, action) => {
@@ -65,8 +61,22 @@ export const userSlice = createSlice({
       .addCase(getCurrentUserFromBackend.rejected, (state) => {
         state.status.value = "error";
       })
+      //Update Current User
+      .addCase(updateCurrentUser.pending, (state) => {
+        state.status.type = "updateUser";
+        state.status.value = "pending";
+      })
+      .addCase(updateCurrentUser.fulfilled, (state, action) => {
+        state.status.value = "success";
+        state.currentUser = action.payload;
+      })
+      .addCase(updateCurrentUser.rejected, (state) => {
+        state.status.value = "error";
+      });
   },
 });
 export const getCurrentUser = (state) => state.user.currentUser;
+export const getUserById = (state, userId) =>
+  state.user.allUsers.find(({ _id }) => _id === userId);
 export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;
