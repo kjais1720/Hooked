@@ -16,7 +16,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
     dispatch(unfollowUser(_id));
   };
 
-  const isLoading = status.payload === _id && status.value === "pending";
+  const isLoading = (status.type==="followUser" || status.type==="unfollowUser") && status.payload === _id && status.value === "pending";
   return (
     <article className="flex gap-2 rounded-2xl bg-light-100 p-4 dark:bg-dark-100">
       <Link to={`/profile/${username}`}>
@@ -35,7 +35,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
           <Spinner size="md" />
         </button>
       ) : (
-        <button onClick={followUnfollowUser} className="ml-auto text-primary">
+        <button onClick={followUnfollowUser} className="ml-auto text-md text-primary">
           {isUserFollowed ? "Unfollow" : "Follow"}
         </button>
       )}

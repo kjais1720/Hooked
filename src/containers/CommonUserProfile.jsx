@@ -23,7 +23,7 @@ export function CommonUserProfile() {
 
 
   return isPageLoading ? (
-    <Spinner/>
+    <Spinner size="md"/>
   ) : (
     <Profile
       {...user}

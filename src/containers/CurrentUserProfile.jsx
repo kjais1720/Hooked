@@ -4,7 +4,7 @@ import { getCurrentUser, logout } from "slices";
 import { EditProfileModal, Profile } from "components";
 import { Spinner } from "components";
 export function CurrentUserProfile() {
-  const [showModal, toggleShowModal] = useReducer((state) => !state, false);
+  const [isModalOpen, toggleisModalOpen] = useReducer((state) => !state, false);
   const { status } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
@@ -17,12 +17,12 @@ export function CurrentUserProfile() {
     <div>
       <Profile
         {...currentUser}
-        openEditModal={toggleShowModal}
+        openEditModal={toggleisModalOpen}
         logoutUser={logoutUser}
         isCurrentUserProfile
       />
-      {showModal ? (
-        <EditProfileModal user={currentUser} closeModal={toggleShowModal} />
+      {isModalOpen ? (
+        <EditProfileModal user={currentUser} closeModal={toggleisModalOpen} />
       ) : (
         " "
       )}
