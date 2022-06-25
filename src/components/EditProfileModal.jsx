@@ -134,7 +134,7 @@ export function EditProfileModal({ user, closeModal }) {
             hidden
           />
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-wrap gap-2">
           <div className="flex flex-grow flex-col gap-2">
             <label className="dark:text-gray-200">Firstname</label>
             <input
@@ -145,7 +145,7 @@ export function EditProfileModal({ user, closeModal }) {
               type="text"
             />
           </div>
-          <div className="flex flex-grow flex-col gap-2 mt-4 md:mt-0">
+          <div className="mt-4 flex flex-grow flex-col gap-2 md:mt-0">
             <label className="dark:text-gray-200">Lastname</label>
             <input
               onChange={textChangeHandler}

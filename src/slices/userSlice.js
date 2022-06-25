@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authenticateUser, getCurrentUserFromBackend, updateCurrentUser } from "services";
+import {
+  authenticateUser,
+  getCurrentUserFromBackend,
+  updateCurrentUser,
+  getAllUsers,
+  followUser,
+  unfollowUser,
+  bookmarkPost,
+} from "services";
 const initialState = {
   currentUser: {},
   allUsers: [],
@@ -7,6 +15,7 @@ const initialState = {
   status: {
     type: "",
     value: "idle",
+    payload:""
   },
   error: {
     status: 0,
@@ -71,6 +80,74 @@ export const userSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(updateCurrentUser.rejected, (state) => {
+        state.status.value = "error";
+      })
+      //Get All Users
+      .addCase(getAllUsers.pending, (state) => {
+        state.status.type = "getAllUsers";
+        state.status.value = "pending";
+      })
+      .addCase(getAllUsers.fulfilled, (state, action) => {
+        state.status.value = "success";
+        const allOtherUsers = action.payload.filter(
+          ({ _id }) => _id !== state.currentUser._id
+        );
+        state.allUsers = allOtherUsers;
+      })
+      .addCase(getAllUsers.rejected, (state) => {
+        state.status.value = "error";
+      })
+      //Follow a user
+      .addCase(followUser.pending, (state, {meta}) => {
+        state.status.type = "followUser";
+        state.status.value = "pending";
+        state.status.payload= meta.arg
+      })
+      .addCase(followUser.fulfilled, (state, action) => {
+        state.status.value = "success";
+        const followUserId = action.payload;
+        const followUser = state.allUsers.find(
+          ({ _id }) => _id === followUserId
+        );
+        state.currentUser.following.push(followUserId);
+        followUser.followers.push(state.currentUser._id);
+      })
+      .addCase(followUser.rejected, (state) => {
+        state.status.value = "error";
+      })
+      //Unfollow a user
+      .addCase(unfollowUser.pending, (state, {meta}) => {
+        state.status.type = "unfollowUser";
+        state.status.value = "pending";
+        state.status.payload = meta.arg
+      })
+      .addCase(unfollowUser.fulfilled, (state, action) => {
+        state.status.value = "success";
+        const unfollowUserId = action.payload;
+        const unfollowUser = state.allUsers.find(
+          ({ _id }) => _id === unfollowUserId
+        );
+        state.currentUser.following = state.currentUser.following.filter(
+          (id) => id !== unfollowUserId
+        );
+        unfollowUser.followers = unfollowUser.followers.filter(
+          (id) => id !== state.currentUser._id
+        );
+      })
+      .addCase(unfollowUser.rejected, (state) => {
+        state.status.value = "error";
+      })
+      //Bookmark a Post
+      .addCase(bookmarkPost.pending, (state) => {
+        state.status.type = "bookmarkPost";
+        state.status.value = "pending";
+      })
+      .addCase(bookmarkPost.fulfilled, (state, action) => {
+        state.status.value = "success";
+        const postId = action.payload;
+        state.currentUser.savedPosts.push(postId);
+      })
+      .addCase(bookmarkPost.rejected, (state) => {
         state.status.value = "error";
       });
   },

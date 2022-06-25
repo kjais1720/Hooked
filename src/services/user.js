@@ -27,3 +27,23 @@ export const updateCurrentUser = createAsyncThunk(
     return data;
   }
 );
+
+export const getAllUsers = createAsyncThunk("/user/getAllUsers", async () => {
+  const { data } = await axios.get("/user");
+  return data;
+});
+
+export const followUser = createAsyncThunk("user/followUser",async (followUserId) => {
+  await axios.put(`/user/follow/${followUserId}`)
+  return followUserId;
+})
+
+export const unfollowUser = createAsyncThunk("user/unfollowUser",async (unfollowUserId) => {
+  await axios.put(`/user/unfollow/${unfollowUserId}`)
+  return unfollowUserId;
+})
+
+export const bookmarkPost = createAsyncThunk("user/bookmarkPost",async (postId) => {
+await axios.put(`/user/bookmarkPost/${postId}`);
+  return postId
+})
