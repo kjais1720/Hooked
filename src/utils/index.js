@@ -1,2 +1,7 @@
 export { configureAxios } from "./axiosConfig";
-export { isFileSizeInValid, navigateToPreviousPage } from "./helperFunctions"
+export {
+  isFileSizeInValid,
+  navigateToPreviousPage,
+  sortPostsByDate,
+  sortPostsByLikes,
+} from "./helperFunctions";

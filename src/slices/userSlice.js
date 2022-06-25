@@ -15,7 +15,7 @@ const initialState = {
   status: {
     type: "",
     value: "idle",
-    payload:""
+    payload: "",
   },
   error: {
     status: 0,
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
         state.currentUser = action.payload.user;
         localStorage.setItem("USER_TOKEN", action.payload.authToken);
         localStorage.setItem("USER_ID", action.payload.user._id);
-        state.status.value = "success";
+        state.status.value = "fulfilled";
       })
       .addCase(authenticateUser.rejected, (state, action) => {
         state.status.value = "error";
@@ -64,7 +64,7 @@ export const userSlice = createSlice({
         state.status.value = "pending";
       })
       .addCase(getCurrentUserFromBackend.fulfilled, (state, action) => {
-        state.status.value = "success";
+        state.status.value = "fulfilled";
         state.currentUser = action.payload.user;
       })
       .addCase(getCurrentUserFromBackend.rejected, (state) => {
@@ -76,7 +76,7 @@ export const userSlice = createSlice({
         state.status.value = "pending";
       })
       .addCase(updateCurrentUser.fulfilled, (state, action) => {
-        state.status.value = "success";
+        state.status.value = "fulfilled";
         state.currentUser = action.payload;
       })
       .addCase(updateCurrentUser.rejected, (state) => {
@@ -88,7 +88,7 @@ export const userSlice = createSlice({
         state.status.value = "pending";
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
-        state.status.value = "success";
+        state.status.value = "fulfilled";
         const allOtherUsers = action.payload.filter(
           ({ _id }) => _id !== state.currentUser._id
         );
@@ -98,13 +98,13 @@ export const userSlice = createSlice({
         state.status.value = "error";
       })
       //Follow a user
-      .addCase(followUser.pending, (state, {meta}) => {
+      .addCase(followUser.pending, (state, { meta }) => {
         state.status.type = "followUser";
         state.status.value = "pending";
-        state.status.payload= meta.arg
+        state.status.payload = meta.arg;
       })
       .addCase(followUser.fulfilled, (state, action) => {
-        state.status.value = "success";
+        state.status.value = "fulfilled";
         const followUserId = action.payload;
         const followUser = state.allUsers.find(
           ({ _id }) => _id === followUserId
@@ -116,13 +116,13 @@ export const userSlice = createSlice({
         state.status.value = "error";
       })
       //Unfollow a user
-      .addCase(unfollowUser.pending, (state, {meta}) => {
+      .addCase(unfollowUser.pending, (state, { meta }) => {
         state.status.type = "unfollowUser";
         state.status.value = "pending";
-        state.status.payload = meta.arg
+        state.status.payload = meta.arg;
       })
       .addCase(unfollowUser.fulfilled, (state, action) => {
-        state.status.value = "success";
+        state.status.value = "fulfilled";
         const unfollowUserId = action.payload;
         const unfollowUser = state.allUsers.find(
           ({ _id }) => _id === unfollowUserId
@@ -143,7 +143,7 @@ export const userSlice = createSlice({
         state.status.value = "pending";
       })
       .addCase(bookmarkPost.fulfilled, (state, action) => {
-        state.status.value = "success";
+        state.status.value = "fulfilled";
         const postId = action.payload;
         state.currentUser.savedPosts.push(postId);
       })

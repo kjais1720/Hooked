@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { getUserById, getCurrentUser } from "slices";
 
-export function ProfileImage({ userId, size, bgShade }) {
+export function ProfileImage({ userId, size, bgShade, isCurrentUserProfile }) {
   const imageSizes = {
     sm: "1rem",
     md: "3rem",
@@ -19,8 +19,8 @@ export function ProfileImage({ userId, size, bgShade }) {
   let user;
   const currentUser = useSelector(getCurrentUser);
   user = useSelector((state) => getUserById(state, userId)) ?? {};
-  if (currentUser._id === userId) {
-    user = { ...currentUser };
+  if(isCurrentUserProfile || currentUser._id === userId) {
+    user = currentUser
   }
 
   const { firstname, lastname, profilePicture } = user;

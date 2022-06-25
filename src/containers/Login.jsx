@@ -20,7 +20,7 @@ export function Login() {
       } else if (error.status === "404") {
         formik.setFieldError("username", errorMessages["404"]);
       }
-    } else if (status.value === "success") {
+    } else if (status.value === "fulfilled") {
       const redirectPath = location.state?.from?.pathname || "/home";
       navigate(redirectPath, { replace: true });
       toast.success(`Welcome back ${currentUser.firstname}!!`);

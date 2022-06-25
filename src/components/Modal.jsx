@@ -7,9 +7,9 @@ export function Modal({ children, childName }) {
   const modal = (
     <div
       onClick={() => dispatch(closeModal())}
-      className="fixed inset-0 flex items-center 
+      className="fixed inset-0 z-10 flex items-center 
                 justify-center overflow-auto
-                bg-gray-800/50
+                bg-black/75
                 "
     >
       <div onClick={(e) => e.stopPropagation()}>{children}</div>

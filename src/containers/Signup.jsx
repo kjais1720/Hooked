@@ -18,7 +18,7 @@ export function SignUp() {
       if (error.status === "400") {
         formik.setFieldError("username", errorMessages[error.status][0]);
       }
-    } else if (status.value === "success") {
+    } else if (status.value === "fulfilled") {
       const redirectPath = location.state?.from?.pathname || "/home";
       navigate(redirectPath, { replace: true });
       toast.success(`Welcome aboard ${currentUser.firstname}!!`);

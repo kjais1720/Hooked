@@ -7,19 +7,19 @@ export function AllUsersList() {
   const dispatch = useDispatch();
   return (
     <Modal childName="allUsersList">
-      <article className="rounded-2xl bg-light-100 p-4 dark:bg-dark-100">
+      <article className="rounded-2xl bg-light-100 p-4 dark:bg-dark-200">
         <header className="flex">
           <h3 className="text-xl text-gray-600 dark:text-gray-200">
             All users
           </h3>
           <button
             onClick={() => dispatch(closeModal())}
-            className="ml-auto rounded-full bg-light-200 p-2 dark:bg-dark-200"
+            className="ml-auto rounded-full bg-light-200 p-2 dark:bg-dark-100"
           >
             <FaTimes />
           </button>
         </header>
-        <div className="max-h-[60vh] mt-2 overflow-y-auto overflow-x-hidden">
+        <div className="max-h-[60vh] mt-2 px-2 overflow-y-auto flex flex-col gap-2 overflow-x-hidden">
           {allUsers.map((user) => (
             <ProfileCard key={user._id} {...user} />
           ))}
