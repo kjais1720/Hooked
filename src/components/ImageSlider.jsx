@@ -5,6 +5,7 @@ const x_position = {
   1: "-translate-x-0",
   2: "-translate-x-[90%]",
   3: "-translate-x-[180%]",
+  4: "-translate-x-[270%]",
 };
 
 export function ImageSlider({ images }) {
@@ -26,20 +27,24 @@ export function ImageSlider({ images }) {
   };
 
   return (
-    <div className="relative overflow-hidden ">
+    <div className="relative overflow-hidden">
       <div
         className={`ease flex gap-2 transition-all duration-300 ${x_position[activeImg]}`}
       >
       
         {images.map(({ src, title }, idx) => (
-          <img
+          <figure
             className={`${
-              images.length > 1 ? "w-[90%]" : "w-[100%]"
-            } flex-grow rounded-xl object-cover h-[60vh]`}
-            key={idx}
-            src={src}
-            alt={title}
-          />
+                images.length > 1 ? "w-[90%]" : "w-[100%]"
+              } min-w-[90%] flex-grow rounded-2xl bg-light-200 dark:bg-dark-200 h-[50vh] md:h-[60vh]`}
+          >
+            <img
+              className="object-contain h-full w-full rounded-2xl"
+              key={idx}
+              src={src}
+              alt={title}
+            />
+          </figure>
         ))}
       </div>
 
@@ -48,14 +53,14 @@ export function ImageSlider({ images }) {
           <button
             title="previous picture"
             onClick={moveLeft}
-            className="rounded-full text-xl text-light-100 shadow-lg"
+            className="rounded-full text-xl text-gray-200 shadow-lg relative"
           >
             <FaArrowAltCircleLeft />
           </button>
           <button
             title="next picture"
             onClick={moveRight}
-            className="rounded-full text-xl text-light-100 shadow-xl"
+            className="rounded-full text-xl text-gray-200 shadow-xl"
           >
             <FaArrowAltCircleRight />
           </button>

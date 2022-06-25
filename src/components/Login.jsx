@@ -7,10 +7,10 @@ export function Login({ formik }) {
     false
   );
   return (
-    <div className="min-h-screen bg-primary p-4 md:p-16">
+    <div className="min-h-screen bg-primary flex md:block justify-center items-center p-4 md:p-16">
       <div className="rounded-2xl bg-light-100 dark:bg-dark-100 lg:flex">
         <div className=" md:rounded-r-0 rounded-2xl bg-light-200 p-8 dark:bg-dark-200 md:rounded-l-2xl xl:max-w-screen-sm">
-          <div className=" bg-light-200 px-4 dark:bg-dark-200 sm:px-24 md:px-4 lg:px-12 xl:max-w-2xl xl:px-24">
+          <div className=" bg-light-200 dark:bg-dark-200 md:px-4 lg:px-12 xl:max-w-2xl xl:px-24">
             <h2
               className="xl:text-bold text-center font-display text-4xl font-semibold text-primary lg:text-left
               xl:text-5xl"

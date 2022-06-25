@@ -1,4 +1,4 @@
-import { Navbar, RightSideBar } from "components";
+import { Navbar, RightSideBar, CreatePost, Modal } from "components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router";
@@ -17,6 +17,9 @@ export function WithSidebars() {
         <Outlet />
       </main>
       <RightSideBar />
+      <Modal childName="createPost">
+        <CreatePost/>
+      </Modal>
     </div>
   );
 }

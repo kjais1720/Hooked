@@ -9,7 +9,7 @@ export function Modal({ children, childName }) {
       onClick={() => dispatch(closeModal())}
       className="fixed inset-0 z-10 flex items-center 
                 justify-center overflow-auto
-                bg-black/50
+                bg-black/75
                 "
     >
       <div onClick={(e) => e.stopPropagation()}>{children}</div>

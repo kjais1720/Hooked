@@ -18,7 +18,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
 
   const isLoading = (status.type==="followUser" || status.type==="unfollowUser") && status.payload === _id && status.value === "pending";
   return (
-    <article className="flex gap-2 rounded-2xl bg-light-100 p-4 dark:bg-dark-100">
+    <article className="flex shadow-md gap-2 rounded-2xl bg-light-100 p-4 dark:bg-dark-100">
       <Link to={`/profile/${username}`}>
         <ProfileImage userId={_id} size="md" bgShade="darker" />
       </Link>
