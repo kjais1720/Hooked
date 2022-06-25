@@ -35,7 +35,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
           <Spinner size="md" />
         </button>
       ) : (
-        <button onClick={followUnfollowUser} className="ml-auto text-md text-primary">
+        <button onClick={followUnfollowUser} className="ml-auto text-sm text-primary">
           {isUserFollowed ? "Unfollow" : "Follow"}
         </button>
       )}
