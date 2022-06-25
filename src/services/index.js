@@ -1,1 +1,17 @@
-export { authenticateUser, getCurrentUserFromBackend, updateCurrentUser, followUser, unfollowUser, bookmarkPost, getAllUsers } from "./user"
+export {
+  authenticateUser,
+  getCurrentUserFromBackend,
+  updateCurrentUser,
+  getAllUsers,
+  followUser,
+  unfollowUser,
+  bookmarkPost
+} from "./user";
+export {
+  createPost,
+  getAllPosts,
+  getPost,
+  likePost,
+  deletePost,
+  postComment,
+} from "./posts";
