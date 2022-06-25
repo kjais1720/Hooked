@@ -13,3 +13,7 @@ export { Spinner } from "./Spinner";
 export { ProfileCard } from "./ProfileCard";
 export { Modal } from "./Modal";
 export { AllUsersList } from "./AllUsersList"
+export { Post } from "./Post";
+export { ImageSlider } from "./ImageSlider";
+export { PostOptionsPopover } from "./PostOptionsPopover";
+export { TimeAgo } from "./TimeAgo"
