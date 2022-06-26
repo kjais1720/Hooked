@@ -31,16 +31,15 @@ export function ImageSlider({ images }) {
       <div
         className={`ease flex gap-2 transition-all duration-300 ${x_position[activeImg]}`}
       >
-      
         {images.map(({ src, title }, idx) => (
           <figure
+            key={idx}
             className={`${
-                images.length > 1 ? "w-[90%]" : "w-[100%]"
-              } min-w-[90%] flex-grow rounded-2xl bg-light-200 dark:bg-dark-200 h-[50vh] md:h-[60vh]`}
+              images.length > 1 ? "w-[90%]" : "w-[100%]"
+            } h-[50vh] min-w-[90%] flex-grow rounded-2xl bg-light-200 dark:bg-dark-200 md:h-[60vh]`}
           >
             <img
-              className="object-contain h-full w-full rounded-2xl"
-              key={idx}
+              className="h-full w-full rounded-2xl object-contain"
               src={src}
               alt={title}
             />
@@ -53,7 +52,7 @@ export function ImageSlider({ images }) {
           <button
             title="previous picture"
             onClick={moveLeft}
-            className="rounded-full text-xl text-gray-200 shadow-lg relative"
+            className="relative rounded-full text-xl text-gray-200 shadow-lg"
           >
             <FaArrowAltCircleLeft />
           </button>
