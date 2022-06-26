@@ -21,3 +21,5 @@ export { NewPostAttachmentButtons } from "./PostAttachmentButtons"
 export { CreatePost } from "./CreatePost"
 export { PostImagePreview } from "./PostImagePreview";
 export { NoPostsFound } from "./NoPostsFound";
+export { CreateComment } from "./CreateComment";
+export { ProfilePosts } from "./ProfilePosts";
