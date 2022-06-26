@@ -1,31 +1,8 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import { FaArrowLeft, FaMapMarkerAlt, FaLink } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
-import {
-  MutualFollowersBar,
-  ProfileImage,
-  ProfileCtaButton,
-  SkeletonLoader,
-} from "components";
+import { MutualFollowersBar, ProfileImage, ProfileCtaButton } from "components";
 import { navigateToPreviousPage } from "utils";
-
-const profileSectionButtons = [
-  {
-    key: 0,
-    type: "Posts",
-    path: "",
-  },
-  {
-    key: 1,
-    type: "Likes",
-    path: "",
-  },
-  {
-    key: 2,
-    type: "Bookmarks",
-    path: "",
-  },
-];
 
 export function Profile({
   _id,
@@ -34,7 +11,6 @@ export function Profile({
   username,
   about,
   website,
-  profilePicture,
   coverPicture,
   location,
   followers,
@@ -43,7 +19,7 @@ export function Profile({
   openEditModal,
   isUserFollowed,
   followUnfollowUser,
-  userPosts,
+  bookmarks,
   logoutUser,
 }) {
   const navigate = useNavigate();
@@ -51,7 +27,7 @@ export function Profile({
     <div className="m-2 mx-auto rounded-2xl bg-light-200 dark:bg-dark-200">
       <div className="m-2 flex items-center gap-4 rounded-2xl bg-light-100 p-2 dark:bg-dark-100">
         <button
-          onClick={()=>navigateToPreviousPage(navigate)}
+          onClick={() => navigateToPreviousPage(navigate)}
           className="p-2 text-2xl font-extrabold text-white"
         >
           <FaArrowLeft />
@@ -79,11 +55,7 @@ export function Profile({
           </figure>
           <div className="relative flex -translate-y-1/2 justify-center px-4 md:justify-start">
             <figure className="rounded-full border-8 border-light-200 dark:border-dark-200">
-              <ProfileImage
-                userId={_id}
-                size="lg"
-                bgShade="lighter"
-              />
+              <ProfileImage userId={_id} size="lg" bgShade="lighter" />
             </figure>
           </div>
         </div>
@@ -147,29 +119,7 @@ export function Profile({
         </div>
       </header>
       <main className="mt-4">
-        <div className="flex gap-2 px-4">
-          {profileSectionButtons.map(({ type, path, key }) => {
-            return (
-              <NavLink
-                key={key}
-                to={path}
-                className={({ isActive }) =>
-                  `flex-grow rounded-2xl p-2 px-4 text-center dark:bg-dark-100 ${
-                    isActive
-                      ? "bg-dark-100 text-primary"
-                      : "bg-light-100 text-dark-200 dark:text-light-200"
-                  }`
-                }
-              >
-                {type}
-              </NavLink>
-            );
-          })}
-        </div>
-        <div className="flex flex-col gap-4 p-4">
-          {/* To be filled with posts */}
-          <SkeletonLoader/>
-        </div>
+        <Outlet context={{ _id, bookmarks }} />
       </main>
     </div>
   );

@@ -9,8 +9,7 @@ export function CurrentUserProfile() {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const logoutUser = () => dispatch(logout());
-  const isPageLoading =
-    status.value === "pending" && status.type === "getCurrentUser";
+  const isPageLoading = status.value === "pending" && status.type === "getCurrentUser";
   return isPageLoading ? (
     <Spinner size="lg" />
   ) : (

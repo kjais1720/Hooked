@@ -9,6 +9,7 @@ import {
   SinglePost,
   NotFound
 } from "containers";
+import { ProfilePosts } from "components/ProfilePosts";
 import { Routes, Route } from "react-router";
 import { RequiresAuth } from "./RequiresAuth";
 
@@ -19,8 +20,16 @@ export function AllRoutes() {
       <Route element={<RequiresAuth />}>
         <Route element={<WithSidebars />}>
           <Route path="/home" element={<Timeline />} />
-          <Route path="/profile" element={<CurrentUserProfile />} />
-          <Route path="/profile/:username" element={<CommonUserProfile />} />
+          <Route path="/profile" element={<CurrentUserProfile />} >
+            <Route path="" element={<ProfilePosts/>} />
+            <Route path="likes" element={<ProfilePosts/>} />
+            <Route path="bookmarks" element={<ProfilePosts/>} />
+          </Route>
+          <Route path="/profile/:username" element={<CommonUserProfile />}>
+            <Route path="" element={<ProfilePosts/>} />
+            <Route path="likes" element={<ProfilePosts/>} />
+            <Route path="bookmarks" element={<ProfilePosts/>} />
+          </Route>
           <Route path="/post/:postId" element={<SinglePost />} />
         </Route>
       </Route>

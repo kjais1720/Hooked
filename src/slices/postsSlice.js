@@ -148,5 +148,19 @@ export const getPostById = (state, postId) => {
   return post;
 };
 
+export const getUserPosts = (state, userId) => {
+  const userPosts = state.posts.allPosts.filter((post) => post.userId === userId)
+  return userPosts;
+}
+
+export const getUserBookmarks = (state, bookmarkedPostIds) => {
+  const bookmarkedPosts = state.posts.allPosts.filter(({_id}) => bookmarkedPostIds.find(bookmarkedPostId => bookmarkedPostId === _id))
+  return bookmarkedPosts;
+}
+
+export const getUserLikes = (state, userId) => {
+  const likedPosts = state.posts.allPosts.filter(({likes}) => likes.some(likedUserId => likedUserId === userId))
+  return likedPosts;
+}
 export const { setSortingOrder } = postsSlice.actions;
 export default postsSlice.reducer;
