@@ -1,4 +1,4 @@
-import { Navbar, RightSideBar, CreatePost, Modal } from "components";
+import { Navbar, SearchAndSuggestion, CreatePost, Modal } from "components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router";
@@ -16,9 +16,9 @@ export function WithSidebars() {
       <main className="min-h-screen">
         <Outlet />
       </main>
-      <RightSideBar />
+      <SearchAndSuggestion />
       <Modal childName="createPost">
-        <CreatePost/>
+        <CreatePost />
       </Modal>
     </div>
   );

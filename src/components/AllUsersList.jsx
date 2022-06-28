@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import { ProfileCard, Modal } from "components";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +8,11 @@ export function AllUsersList() {
   const dispatch = useDispatch();
   return (
     <Modal childName="allUsersList">
-      <article className="rounded-2xl bg-light-100 p-4 dark:bg-dark-200">
+      <motion.article
+        animate={{ scale: [.5,1,1.1,1] }}
+        transition={{ duration: .5 }}
+        className="rounded-2xl bg-light-100 p-4 dark:bg-dark-200"
+      >
         <header className="flex">
           <h3 className="text-xl text-gray-600 dark:text-gray-200">
             All users
@@ -19,12 +24,12 @@ export function AllUsersList() {
             <FaTimes />
           </button>
         </header>
-        <div className="max-h-[60vh] mt-2 px-2 overflow-y-auto flex flex-col gap-2 overflow-x-hidden">
+        <div className="mt-2 flex max-h-[60vh] flex-col gap-2 overflow-y-auto overflow-x-hidden px-2">
           {allUsers.map((user) => (
             <ProfileCard key={user._id} {...user} />
           ))}
         </div>
-      </article>
+      </motion.article>
     </Modal>
   );
 }

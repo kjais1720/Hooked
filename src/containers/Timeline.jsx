@@ -18,8 +18,8 @@ export function Timeline() {
       <h2 className="mb-2 rounded-2xl bg-light-100 p-4 text-left text-xl font-medium text-gray-600 dark:bg-dark-100 dark:text-gray-200">
         Home
       </h2>
-      <div className="flex items-center justify-between py-2">
-        <p className="text-xl font-bold">Posts</p>
+      <div className="flex items-center justify-between p-4">
+        <p className="text-xl font-medium">Posts</p>
         <div>
           <span className="mr-2">Sort by</span>
           <button

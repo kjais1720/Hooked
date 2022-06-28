@@ -1,16 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Post, SkeletonLoader, NoPostsFound } from "components";
+import {
+  Post,
+  SkeletonLoader,
+  NoPostsFound,
+  SearchAndSuggestion,
+} from "components";
 import { getExploreFeedPosts, setSortingOrder } from "slices";
 export function Explore() {
   const {
     status: { type, value },
-    sortBy
+    sortBy,
   } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const sortPosts = (e) => {
     dispatch(setSortingOrder(e.target.value));
   };
-  const exploreFeedPosts = useSelector(getExploreFeedPosts)
+  const exploreFeedPosts = useSelector(getExploreFeedPosts);
 
   const isPageLoading = type === "getAllPosts" && value === "pending";
   return (
@@ -18,8 +23,8 @@ export function Explore() {
       <h2 className="mb-2 rounded-2xl bg-light-100 p-4 text-left text-xl font-medium text-gray-600 dark:bg-dark-100 dark:text-gray-200">
         Explore
       </h2>
-      <div className="flex items-center justify-between py-2">
-        <p className="text-xl font-bold">Posts</p>
+      <div className="flex items-center justify-between p-4">
+        <p className="text-xl font-medium">Posts</p>
         <div>
           <span className="mr-2">Sort by</span>
           <button
@@ -59,10 +64,13 @@ export function Explore() {
           <NoPostsFound />
         </div>
       ) : (
-        <div className="mt-2 flex flex-col gap-2">
-          {exploreFeedPosts.map((post) => (
-            <Post key={post._id} {...post} />
-          ))}
+        <div class="">
+          <SearchAndSuggestion />
+          <div className="mt-2 flex flex-col gap-2">
+            {exploreFeedPosts.map((post) => (
+              <Post key={post._id} {...post} />
+            ))}
+          </div>
         </div>
       )}
     </section>
