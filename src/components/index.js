@@ -23,3 +23,4 @@ export { PostImagePreview } from "./PostImagePreview";
 export { NoPostsFound } from "./NoPostsFound";
 export { CreateComment } from "./CreateComment";
 export { ProfilePosts } from "./ProfilePosts";
+export { NotificationCard } from "./NotificationCard";

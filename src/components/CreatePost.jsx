@@ -79,7 +79,7 @@ export function CreatePost({ isCommentPost, postToEdit }) {
   return (
     <section className="relative grid w-full min-w-[95vw] max-w-[99vw] grid-cols-[3rem_auto] gap-2 overflow-x-hidden rounded-2xl bg-light-100 p-4 dark:bg-dark-100 md:min-w-[35rem]">
       <figure>
-        <ProfileImage size="md" variant="200" isCurrentUserProfile />
+        <ProfileImage size="md" bgShade="darker" isCurrentUserProfile />
       </figure>
       <div className="flex flex-col gap-2">
         <textarea

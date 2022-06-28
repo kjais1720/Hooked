@@ -66,7 +66,7 @@ export function Post({
       <header className="flex">
         <div className="flex gap-2">
           <figure className="h-12 w-12 rounded-full ">
-            <ProfileImage userId={userId} size="md" variant={200} />
+            <ProfileImage userId={userId} size="md" bgShade="darker" />
           </figure>
           <div className="flex flex-col gap-2">
             <div className="flex gap-1">
