@@ -7,7 +7,9 @@ import {
   CommonUserProfile,
   Timeline,
   SinglePost,
-  NotFound
+  NotFound,
+  Explore,
+  Notifications
 } from "containers";
 import { ProfilePosts } from "components/ProfilePosts";
 import { Routes, Route } from "react-router";
@@ -31,6 +33,8 @@ export function AllRoutes() {
             <Route path="bookmarks" element={<ProfilePosts/>} />
           </Route>
           <Route path="/post/:postId" element={<SinglePost />} />
+          <Route path="/explore" element={<Explore/>} />
+          <Route path="/notifications" element={<Notifications/>} />
         </Route>
       </Route>
       <Route path="/auth/login" element={<Login />} />

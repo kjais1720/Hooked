@@ -7,3 +7,5 @@ export { CommonUserProfile } from "./CommonUserProfile";
 export { Timeline } from "./Timeline";
 export { SinglePost } from "./SinglePost";
 export { NotFound } from "./NotFound"
+export { Notifications } from "./Notifications";
+export { Explore } from "./Explore";
