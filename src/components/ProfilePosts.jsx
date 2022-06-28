@@ -1,0 +1,80 @@
+import {
+  useLocation,
+  useOutletContext,
+  useParams,
+  Link,
+} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getUserPosts, getUserBookmarks, getUserLikes } from "slices";
+import { Post, SkeletonLoader } from "components";
+
+export function ProfilePosts() {
+  const { pathname } = useLocation();
+  const { username } = useParams();
+  const { _id, bookmarks } = useOutletContext();
+  const { status } = useSelector((state) => state.posts);
+  const userPosts = useSelector((state) => getUserPosts(state, _id));
+  const userLikes = useSelector((state) => getUserLikes(state, _id));
+  const userBookmarks = useSelector((state) =>
+    getUserBookmarks(state, bookmarks ?? [])
+  );
+  const postTypes = {
+    "": userPosts,
+    likes: userLikes,
+    bookmarks: userBookmarks,
+  };
+  const postTypeToShow =
+    username === undefined
+      ? pathname.slice(9)
+      : pathname.slice(10 + username.length);
+  const postsToShow = postTypes[postTypeToShow];
+  const arePostsLoading =
+    (status.type === "getAllPosts" && status.value === "pending") ||
+    postsToShow === undefined;
+  const profileSectionButtons = [
+    {
+      key: 0,
+      type: "Posts",
+      path: `/profile${username ? '/'+username : ""}`,
+    },
+    {
+      key: 1,
+      type: "Likes",
+      path: `/profile/${username ? username+"/" : ""}likes`,
+    },
+    {
+      key: 2,
+      type: "Bookmarks",
+      path: `/profile/${username ? username+"/" : ""}bookmarks`,
+    },
+  ];
+  const isLinkActive = path => path === pathname;
+  return (
+    <section className="flex flex-col gap-4 p-4">
+      <div className="flex gap-2">
+        {profileSectionButtons.map(({ type, path, key }) => {
+          return (
+            <Link
+              key={key}
+              to={path}
+              className={
+                `flex-grow rounded-2xl p-2 px-4 text-center dark:bg-dark-100 ${
+                  isLinkActive(path)
+                    ? "bg-dark-100 text-primary"
+                    : "bg-light-100 text-dark-200 dark:text-light-200"
+                }`
+              }
+            >
+              {type}
+            </Link>
+          );
+        })}
+      </div>
+      {arePostsLoading ? (
+        <SkeletonLoader />
+      ) : (
+        postsToShow.map((post) => <Post key={post._id} {...post} />)
+      )}
+    </section>
+  );
+}
