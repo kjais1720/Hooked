@@ -60,7 +60,6 @@ export function EditProfileModal({ user, closeModal }) {
       className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
     >
       <motion.form
-        // animate={{x:10}}
         transition={{ ease:"easeInOut", duration:1}}
         onSubmit={submitHandler}
         onClick={(e) => e.stopPropagation()}
