@@ -7,6 +7,8 @@ import {
   followUser,
   unfollowUser,
   bookmarkPost,
+  getNotifications,
+  deleteNotification,
 } from "services";
 const initialState = {
   currentUser: {},
@@ -149,7 +151,33 @@ export const userSlice = createSlice({
       })
       .addCase(bookmarkPost.rejected, (state) => {
         state.status.value = "error";
-      });
+      })
+      //Get notifications
+      .addCase(getNotifications.pending, (state) => {
+        state.status.type = "getNotifications";
+        state.status.value = "pending";
+      })
+      .addCase(getNotifications.fulfilled, (state, action) => {
+        state.status.value = "fulfilled";
+        const notifications = action.payload.reverse();
+        state.currentUser.notifications = notifications;
+      })
+      .addCase(getNotifications.rejected, (state) => {
+        state.status.value = "error";
+      })
+      //Delete notifications
+      .addCase(deleteNotification.pending, (state) => {
+        state.status.type = "deleteNotification";
+        state.status.value = "pending";
+      })
+      .addCase(deleteNotification.fulfilled, (state, action) => {
+        state.status.value = "fulfilled";
+        const deletedNotificationId = action.payload;
+        state.currentUser.notifications = state.currentUser.notifications.filter(({_id}) => _id !== deletedNotificationId)
+      })
+      .addCase(deleteNotification.rejected, (state) => {
+        state.status.value = "error";
+      })
   },
 });
 export const getCurrentUser = (state) => state.user.currentUser;

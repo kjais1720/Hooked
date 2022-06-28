@@ -6,8 +6,8 @@ export function Spinner({size, color = "primary"}) {
   }
 
   const colors = {
-    primary:"primary",
-    dark:"dark-100"
+    primary:"hsl(174, 86%, 44%)",
+    dark:"hsl(195, 100%, 6%)"
   }
   return (
     <div className="w-full text-center">
@@ -15,7 +15,7 @@ export function Spinner({size, color = "primary"}) {
         role="status"
         className={`inline animate-spin fill-${colors[color]} text-gray-200 dark:text-${colors[color]}/50`}
         viewBox="0 0 100 101"
-        fill="none"
+        fill={colors[color]}
         style={{width:sizes[size], height:sizes[size]}}
         xmlns="http://www.w3.org/2000/svg"
       >

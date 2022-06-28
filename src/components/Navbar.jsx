@@ -9,7 +9,6 @@ export function Navbar() {
   }
   return (
     <div className="relative z-10">
-      <div className="m-2 rounded-2xl bg-light-200 dark:bg-dark-100">
         <nav
           className="md:max-w-48 space-between md:rounded-0 fixed bottom-0 
                         left-0 right-0 z-10
@@ -57,7 +56,6 @@ export function Navbar() {
             <p className="hidden lg:block">Profile</p>
           </NavLink>
         </nav>
-      </div>
     </div>
   );
 }

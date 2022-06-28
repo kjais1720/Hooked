@@ -125,14 +125,9 @@ const postsSlice = createSlice({
   },
 });
 
-export const getTimelinePosts = (state) => {
-  const { allPosts, sortBy } = state.posts;
-  const { currentUser } = state.user;
-  const userPosts = allPosts.filter(({ userId }) => userId === currentUser._id);
-  const followingPosts = allPosts.filter(({ userId }) =>
-    currentUser.following?.some((id) => id === userId)
-  );
-  let postsToShow = [...userPosts, ...followingPosts];
+export const sortPosts = (state, posts) => {
+  const { sortBy } = state.posts;
+  const postsToShow = [...posts]
   switch (sortBy) {
     case "TRENDING":
       return sortPostsByLikes(postsToShow);
@@ -141,7 +136,23 @@ export const getTimelinePosts = (state) => {
     default:
       return postsToShow;
   }
+}
+
+export const getTimelinePosts = (state) => {
+  const { allPosts } = state.posts;
+  const { currentUser } = state.user;
+  const userPosts = allPosts.filter(({ userId }) => userId === currentUser._id);
+  const followingPosts = allPosts.filter(({ userId }) =>
+    currentUser.following?.some((id) => id === userId)
+  );
+  let postsToShow = [...userPosts, ...followingPosts];
+  return sortPosts(state, postsToShow);
 };
+
+export const getExploreFeedPosts = state => {
+  const { allPosts } = state.posts;
+  return sortPosts(state, allPosts);
+}
 
 export const getPostById = (state, postId) => {
   const post = state.posts.allPosts.find(({ _id }) => _id === postId);
@@ -162,5 +173,6 @@ export const getUserLikes = (state, userId) => {
   const likedPosts = state.posts.allPosts.filter(({likes}) => likes.some(likedUserId => likedUserId === userId))
   return likedPosts;
 }
+
 export const { setSortingOrder } = postsSlice.actions;
 export default postsSlice.reducer;

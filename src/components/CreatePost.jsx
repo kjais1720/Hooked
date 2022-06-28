@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,14 +62,12 @@ export function CreatePost({ isCommentPost, postToEdit }) {
     }
     setPostUploadStarted(true);
     dispatch(closeModal());
-
   };
   if (
     status.type === "createPost" &&
     status.value === "fulfilled" &&
     postUploadStarted
   ) {
-
     dispatch(closeModal());
   }
   const isPostUploadPending =
@@ -77,9 +76,13 @@ export function CreatePost({ isCommentPost, postToEdit }) {
     postUploadStarted;
 
   return (
-    <section className="relative grid w-full min-w-[95vw] max-w-[99vw] grid-cols-[3rem_auto] gap-2 overflow-x-hidden rounded-2xl bg-light-100 p-4 dark:bg-dark-100 md:min-w-[35rem]">
+    <motion.article
+      animate={{ scale: [0.5, 1.1, 1] }}
+      transition={{ duration: 0.5, linear: true }}
+      className="relative grid w-full min-w-[95vw] max-w-[99vw] grid-cols-[3rem_auto] gap-2 overflow-x-hidden rounded-2xl bg-light-100 p-4 dark:bg-dark-100 md:min-w-[35rem]"
+    >
       <figure>
-        <ProfileImage size="md" variant="200" isCurrentUserProfile />
+        <ProfileImage size="md" bgShade="darker" isCurrentUserProfile />
       </figure>
       <div className="flex flex-col gap-2">
         <textarea
@@ -87,7 +90,7 @@ export function CreatePost({ isCommentPost, postToEdit }) {
           rows={3}
           value={postFormData.content}
           className="border-0 outline-0 dark:bg-dark-100 dark:text-gray-200"
-          placeholder="What's on your mind"
+          placeholder="What's on your mind ..."
         ></textarea>
         <div className="flex w-full max-w-[70vw] gap-2 overflow-x-auto overflow-y-hidden pb-2">
           {localImageUrls.map((url, index) => (
@@ -120,6 +123,6 @@ export function CreatePost({ isCommentPost, postToEdit }) {
           )}
         </div>
       </div>
-    </section>
+    </motion.article>
   );
 }

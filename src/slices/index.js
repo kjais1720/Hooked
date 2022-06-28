@@ -7,4 +7,6 @@ export {
   getUserBookmarks,
   getUserLikes,
   getUserPosts,
+  sortPosts,
+  getExploreFeedPosts,
 } from "./postsSlice";

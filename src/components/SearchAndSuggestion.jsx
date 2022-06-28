@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import { ProfileCard, AllUsersList } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "slices";
-export function RightSideBar() {
+export function SearchAndSuggestion() {
   const { allUsers } = useSelector((state) => state.user);
   const usersToShow = allUsers.slice(0, 4);
   const dispatch = useDispatch();

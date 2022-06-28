@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { isFileSizeInValid } from "utils";
@@ -58,7 +59,8 @@ export function EditProfileModal({ user, closeModal }) {
       onClick={closeModal}
       className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
     >
-      <form
+      <motion.form
+        transition={{ ease:"easeInOut", duration:1}}
         onSubmit={submitHandler}
         onClick={(e) => e.stopPropagation()}
         className="relative flex min-h-screen w-screen max-w-lg
@@ -106,13 +108,13 @@ export function EditProfileModal({ user, closeModal }) {
             hidden
           />
         </div>
-        <div className="-mb-8 flex -translate-y-1/2">
+        <div className="-mb-8 w-fit m-auto flex -translate-y-1/2">
           {formData.profilePicture ? (
             <img
               className="m-auto h-32 w-32 rounded-full border-8
                                     border-light-200 object-cover dark:border-dark-100
                                     "
-              src={formData.profilePicture}
+              src={formData.profilePicture.src}
               alt="Profile"
             />
           ) : (
@@ -145,7 +147,7 @@ export function EditProfileModal({ user, closeModal }) {
               type="text"
             />
           </div>
-          <div className="mt-4 flex flex-grow flex-col gap-2 md:mt-0">
+          <div className="flex flex-grow flex-col gap-2">
             <label className="dark:text-gray-200">Lastname</label>
             <input
               onChange={textChangeHandler}
@@ -185,7 +187,7 @@ export function EditProfileModal({ user, closeModal }) {
             className="rounded-2xl bg-light-100 p-2 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
           ></textarea>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 }

@@ -5,7 +5,9 @@ export {
   getAllUsers,
   followUser,
   unfollowUser,
-  bookmarkPost
+  bookmarkPost,
+  getNotifications,
+  deleteNotification,
 } from "./user";
 export {
   createPost,
