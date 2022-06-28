@@ -47,3 +47,13 @@ export const bookmarkPost = createAsyncThunk("user/bookmarkPost",async (postId) 
 await axios.put(`/user/bookmarkPost/${postId}`);
   return postId
 })
+
+export const getNotifications = createAsyncThunk("user/getNotifications", async ()=>{
+  const { data } = await axios.get("/user/notifications")
+  return data;
+})
+
+export const deleteNotification = createAsyncThunk("user/deleteNotification", async (notificationId) => {
+  await axios.delete(`/user/notifications/${notificationId}`)
+  return notificationId;
+})
