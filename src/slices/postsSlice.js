@@ -57,6 +57,7 @@ const postsSlice = createSlice({
       })
       .addCase(createPost.rejected, (state, action) => {
         state.status.value = "error";
+        toast.error("An error occurred please try again!!");
         state.error = action.error.message;
       })
       //Update a post
@@ -73,6 +74,7 @@ const postsSlice = createSlice({
       .addCase(updatePost.rejected, (state, action) => {
         state.status.value = "error";
         state.error = action.error.message;
+        toast.error("An error occurred please try again!!");
       })
       //Like a post
       .addCase(

@@ -15,7 +15,7 @@ export function SearchAndSuggestion() {
             type="text"
             className="flex-grow border-none bg-light-100 
                        p-2 outline-light-200 
-                       focus-visible:border-none focus-visible:outline-transparent
+                       focus-visible:border-none focus-visible:outline-none
                        dark:bg-dark-100"
             placeholder="Find Friends..."
           />

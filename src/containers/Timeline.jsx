@@ -55,7 +55,7 @@ export function Timeline() {
           <SkeletonLoader />
         </div>
       ) : timelinePosts.length <= 0 ? (
-        <div class="mt-16">
+        <div className="mt-16">
           <NoPostsFound />
         </div>
       ) : (

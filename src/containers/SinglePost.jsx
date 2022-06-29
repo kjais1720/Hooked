@@ -10,7 +10,6 @@ export function SinglePost(){
   const goToPreviousPage = () => navigateToPreviousPage(navigate)
   const post = useSelector(state=>getPostById(state,postId)) ?? {};
   const comments = post.comments?.length ? post.comments : [];
-  console.log({comments})
   return(
     <section className="my-2 px-2 relative z-10 flex flex-col gap-4">
       <div className="p-2 flex items-center gap-4 rounded-2xl bg-light-100 dark:bg-dark-100">

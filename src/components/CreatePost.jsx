@@ -17,7 +17,7 @@ const defaultFormData = {
   imageAlts: {},
 };
 
-export function CreatePost({ isCommentPost, postToEdit }) {
+export function CreatePost({ postToEdit }) {
   const [localImageUrls, setLocalImageUrls] = useState([]);
   const [postUploadStarted, setPostUploadStarted] = useState(false);
   const [imagesToRemoveFromServer, setImagesToRemoveFromServer] = useState({});
@@ -39,16 +39,6 @@ export function CreatePost({ isCommentPost, postToEdit }) {
     }
   //eslint-disable-next-line
   }, []);
-  useEffect(() => {
-    if (status.type === "createPost") {
-      if (status.value === "fulfilled") {
-        setPostFormData(defaultFormData);
-        setLocalImageUrls([]);
-      } else if (status.value === "error") {
-        toast.error("An error occurred please try again!!");
-      }
-    }
-  }, [status]);
 
   const handleContentChange = (event) => {
     setPostFormData((prev) => ({ ...prev, content: event.target.value }));
@@ -101,7 +91,7 @@ export function CreatePost({ isCommentPost, postToEdit }) {
     dispatch(closeModal());
   }
   const isPostUploadPending =
-    status.type === "createPost" &&
+    (status.type === "createPost" || status.type === "updatePost") &&
     status.value === "pending" &&
     postUploadStarted;
 

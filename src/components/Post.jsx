@@ -82,8 +82,10 @@ export function Post({
     >
       <header className="flex">
         <div className="flex gap-2">
-          <figure className="h-12 w-12 rounded-full ">
-            <ProfileImage userId={userId} size="md" bgShade="darker" />
+          <figure onClick={stopBubbling} className="h-12 w-12 rounded-full ">
+            <Link to={isCurrentUserPost ? "/profile" : `/profile/${username}`}>
+              <ProfileImage userId={userId} size="md" bgShade="darker" />
+            </Link>
           </figure>
           <div className="flex flex-col gap-2">
             <div onClick={stopBubbling} className="flex gap-1">

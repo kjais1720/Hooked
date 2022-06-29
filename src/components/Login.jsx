@@ -50,6 +50,7 @@ export function Login({ formik }) {
                   <div
                     className={`flex w-full gap-2 rounded-2xl border-2 border-transparent py-2 px-4 text-lg 
                                 focus:border-primary focus:outline-none
+                                focus-visible:border-none focus-visible:outline-none
                                 dark:bg-gray-800
                                 dark:text-gray-200
                                 dark:placeholder:text-gray-600
