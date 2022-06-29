@@ -65,7 +65,9 @@ export function Explore() {
         </div>
       ) : (
         <div class="">
-          <SearchAndSuggestion />
+          <div class="md:hidden">
+            <SearchAndSuggestion />
+          </div>
           <div className="mt-2 flex flex-col gap-2">
             {exploreFeedPosts.map((post) => (
               <Post key={post._id} {...post} />
