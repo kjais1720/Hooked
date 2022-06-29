@@ -19,6 +19,11 @@ export const getPost = createAsyncThunk("posts/getPost", async (postId) => {
   return data;
 });
 
+export const updatePost = createAsyncThunk("posts/updatePost", async ({updatedPost, postId}) => {
+  const { data } = await axios.put(`/post/${postId}`, updatedPost)
+  return {data, postId};
+})
+
 export const likePost = createAsyncThunk(
   "posts/likePost",
   async ({ postId, userId }) => {
@@ -29,13 +34,24 @@ export const likePost = createAsyncThunk(
 
 export const postComment = createAsyncThunk(
   "posts/postComment",
-  async ({postId, formData}) => {
+  async ({ postId, formData }) => {
     const { data } = await axios.put(`/post/${postId}/comment`, formData);
-    return {postId,data};
+    return { postId, data };
   }
 );
 
-export const deletePost = createAsyncThunk("post/deletePost", async (postId) => {
-  await axios.delete(`/post/${postId}`);
-  return postId
-})
+export const deleteComment = createAsyncThunk(
+  "posts/deleteComment",
+  async ({ postId, commentId }) => {
+    await axios.delete(`/post/${postId}/comment/${commentId}`);
+    return { postId, commentId };
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "post/deletePost",
+  async (postId) => {
+    await axios.delete(`/post/${postId}`);
+    return postId;
+  }
+);

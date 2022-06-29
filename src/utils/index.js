@@ -4,4 +4,5 @@ export {
   navigateToPreviousPage,
   sortPostsByDate,
   sortPostsByLikes,
+  stopBubbling
 } from "./helperFunctions";

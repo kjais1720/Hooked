@@ -24,7 +24,7 @@ export function PostImagePreview({ url, index, removeImage, setFormData }) {
     >
       <button
         className="absolute right-2 top-2 rounded-full bg-gray-800/50 p-2 text-gray-200"
-        onClick={() => removeImage(index)}
+        onClick={() => removeImage(index, url)}
       >
         <FaTimes />
       </button>

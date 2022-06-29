@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createPost,
+  updatePost,
   getAllPosts,
   likePost,
   postComment,
   deletePost,
+  deleteComment,
 } from "services";
 import { sortPostsByDate, sortPostsByLikes } from "utils";
 import { toast } from "react-hot-toast";
@@ -54,6 +56,21 @@ const postsSlice = createSlice({
         toast.success(`Post added!`);
       })
       .addCase(createPost.rejected, (state, action) => {
+        state.status.value = "error";
+        state.error = action.error.message;
+      })
+      //Update a post
+      .addCase(updatePost.pending, (state) => {
+        state.status.type = "updatePost";
+        state.status.value = "pending";
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        const {data :updatedPost, postId} = action.payload;
+        state.status.value = "fulfilled";
+        toast.success(`Post updated!`);
+        state.allPosts = state.allPosts.map(post => post._id === postId ? updatedPost : post)
+      })
+      .addCase(updatePost.rejected, (state, action) => {
         state.status.value = "error";
         state.error = action.error.message;
       })
@@ -121,7 +138,23 @@ const postsSlice = createSlice({
       .addCase(deletePost.rejected, (state, action) => {
         state.status.value = "error";
         state.error = action.error.message;
-      });
+      })
+      //Delete a comment
+      .addCase(deleteComment.pending, (state, { meta: { arg: postId } }) => {
+        state.status.type = "deleteComment";
+        state.status.value = "pending";
+        state.status.payload = postId;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        const {postId, commentId} = action.payload;
+        state.status.value = "fulfilled";
+        const postToUpdate = state.allPosts.find(({_id})=> _id === postId);
+        postToUpdate.comments=postToUpdate.comments.filter(({_id})=> _id !== commentId)
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
+        state.status.value = "error";
+        state.error = action.error.message;
+      })
   },
 });
 

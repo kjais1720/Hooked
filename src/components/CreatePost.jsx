@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "services";
+import { createPost, updatePost } from "services";
 import { closeModal } from "slices";
 import {
   PostImagePreview,
@@ -20,8 +20,25 @@ const defaultFormData = {
 export function CreatePost({ isCommentPost, postToEdit }) {
   const [localImageUrls, setLocalImageUrls] = useState([]);
   const [postUploadStarted, setPostUploadStarted] = useState(false);
+  const [imagesToRemoveFromServer, setImagesToRemoveFromServer] = useState({});
   const [postFormData, setPostFormData] = useState(defaultFormData);
+  const dispatch = useDispatch();
   const { status } = useSelector((state) => state.posts);
+  const postImages = postToEdit?.images;
+  const postContent = postToEdit?.content;
+  const isPostBeingEdited = postToEdit === undefined ? false : true;
+  useEffect(() => {
+    if (postImages) {
+      setLocalImageUrls(postImages.map(({ src }) => src));
+    }
+    if (postContent) {
+      setPostFormData((prev) => ({
+        ...prev,
+        content: postContent,
+      }));
+    }
+  //eslint-disable-next-line
+  }, []);
   useEffect(() => {
     if (status.type === "createPost") {
       if (status.value === "fulfilled") {
@@ -32,39 +49,52 @@ export function CreatePost({ isCommentPost, postToEdit }) {
       }
     }
   }, [status]);
-  const dispatch = useDispatch();
 
   const handleContentChange = (event) => {
     setPostFormData((prev) => ({ ...prev, content: event.target.value }));
   };
-  const removeLocalImage = (index) => {
-    setLocalImageUrls((prev) => prev.filter((_, i) => i !== index));
+
+  const removeLocalImage = (indexOfImage, imageUrl) => {
+    setLocalImageUrls((prev) => prev.filter((_, i) => i !== indexOfImage));
     setPostFormData((prev) => ({
       ...prev,
-      images: prev.images.filter((_, i) => i !== index),
+      images: prev.images.filter((_, i) => i !== indexOfImage),
     }));
+    if (isPostBeingEdited) {
+      setImagesToRemoveFromServer((prev) => {
+        const imageToRemove = postToEdit.images.find(
+          ({ src }) => src === imageUrl
+        );
+        return imageToRemove ? {...prev, [imageToRemove.publicId]:imageToRemove} : prev;
+      });
+    }
   };
   const handleSubmit = () => {
     const data = new FormData();
     const content = postFormData.content;
-    if (!isCommentPost) {
-      const imageAlts = postFormData.imageAlts;
-      if (content !== "") {
-        data.append("content", content);
-        postFormData.images.forEach((image, idx) => {
-          data.append(`image-${idx}`, image, `postImage-${idx}`);
-        });
-        for (const altIndex in imageAlts) {
-          data.append(`${altIndex}`, imageAlts[altIndex]);
-        }
+    const imageAlts = postFormData.imageAlts;
+    if (content !== "" || postFormData.images.length > 0) {
+      data.append("content", content);
+      postFormData.images.forEach((image, idx) => {
+        data.append(`image-${idx}`, image, `postImage-${idx}`);
+      });
+      for (const altIndex in imageAlts) {
+        data.append(`${altIndex}`, imageAlts[altIndex]);
+      }
+      if (Object.keys(imagesToRemoveFromServer).length > 0) {
+        console.log({imagesToRemoveFromServer})
+        data.append("imagesToRemove", JSON.stringify(imagesToRemoveFromServer));
+      }
+      if(isPostBeingEdited){
+        dispatch(updatePost({updatedPost:data, postId:postToEdit._id}))
+      }else{
         dispatch(createPost(data));
       }
     }
     setPostUploadStarted(true);
-    dispatch(closeModal());
   };
   if (
-    status.type === "createPost" &&
+    (status.type === "createPost" || status.type==="updatePost") &&
     status.value === "fulfilled" &&
     postUploadStarted
   ) {
@@ -90,7 +120,7 @@ export function CreatePost({ isCommentPost, postToEdit }) {
           rows={3}
           value={postFormData.content}
           className="border-0 outline-0 dark:bg-dark-100 dark:text-gray-200"
-          placeholder="What's on your mind ..."
+          placeholder="What's on your mind"
         ></textarea>
         <div className="flex w-full max-w-[70vw] gap-2 overflow-x-auto overflow-y-hidden pb-2">
           {localImageUrls.map((url, index) => (
