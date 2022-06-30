@@ -15,3 +15,5 @@ export const sortPostsByDate = (posts) =>
 
 export const formatDate = (dateInISO) =>
   toDate(parseISO(dateInISO).toString().slice(0, 24));
+
+export const stopBubbling = e => e.stopPropagation();

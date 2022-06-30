@@ -105,6 +105,7 @@ export function EditProfileModal({ user, closeModal }) {
             onChange={imageChangeHandler}
             id="coverPic"
             type="file"
+            accept="image/*"
             hidden
           />
         </div>
@@ -133,6 +134,7 @@ export function EditProfileModal({ user, closeModal }) {
             onChange={imageChangeHandler}
             id="proPic"
             type="file"
+            accept="image/*"
             hidden
           />
         </div>

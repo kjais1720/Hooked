@@ -1,21 +1,21 @@
 import { FaSearch } from "react-icons/fa";
-import { ProfileCard, AllUsersList } from "components";
+import { ProfileCard, AllUsersList, Spinner } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "slices";
 export function SearchAndSuggestion() {
-  const { allUsers } = useSelector((state) => state.user);
+  const { allUsers, status } = useSelector((state) => state.user);
   const usersToShow = allUsers.slice(0, 4);
   const dispatch = useDispatch();
-
+  const isLoading = status.value==="pending" && status.type==="getAllUsers";
   return (
     <div>
-      <div className="m-2 hidden rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 md:sticky md:top-2 md:block ">
+      <div className="m-2 rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 md:sticky md:top-2 ">
         <div className="flex items-center gap-2 rounded-2xl bg-light-100 px-4 py-2 dark:bg-dark-100">
           <input
             type="text"
             className="flex-grow border-none bg-light-100 
                        p-2 outline-light-200 
-                       focus-visible:border-none focus-visible:outline-transparent
+                       focus-visible:border-none focus-visible:outline-none
                        dark:bg-dark-100"
             placeholder="Find Friends..."
           />
@@ -34,7 +34,7 @@ export function SearchAndSuggestion() {
             </button>
           </div>
           <AllUsersList />
-          {usersToShow?.map((user) => (
+          {isLoading ? <Spinner size="md" /> :usersToShow?.map((user) => (
             <ProfileCard key={user._id} {...user} />
           ))}
         </div>

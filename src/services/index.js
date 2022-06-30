@@ -12,8 +12,10 @@ export {
 export {
   createPost,
   getAllPosts,
+  updatePost,
   getPost,
   likePost,
   deletePost,
   postComment,
+  deleteComment,
 } from "./posts";

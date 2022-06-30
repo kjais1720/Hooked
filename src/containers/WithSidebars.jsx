@@ -16,7 +16,9 @@ export function WithSidebars() {
       <main className="min-h-screen">
         <Outlet />
       </main>
-      <SearchAndSuggestion />
+      <div class="hidden md:block">
+        <SearchAndSuggestion />
+      </div>
       <Modal childName="createPost">
         <CreatePost />
       </Modal>

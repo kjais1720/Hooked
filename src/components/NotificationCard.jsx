@@ -30,6 +30,8 @@ export function NotificationCard({_id, type, payload}){
           <NotificationLink title={`${firstname} ${lastname}`} path={`/profile/${username}`}/>
           commented on your <NotificationLink title="Post" path={`/post/${postId}`} />
         </p>
+      default:
+        break;
     }
   })()
   const deleteThisNotification = () => {

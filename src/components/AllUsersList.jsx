@@ -11,7 +11,7 @@ export function AllUsersList() {
       <motion.article
         animate={{ scale: [.5,1,1.1,1] }}
         transition={{ duration: .5 }}
-        className="rounded-2xl bg-light-100 p-4 dark:bg-dark-200"
+        className="rounded-2xl max-w-[96vw] bg-light-100 p-4 dark:bg-dark-200"
       >
         <header className="flex">
           <h3 className="text-xl text-gray-600 dark:text-gray-200">
