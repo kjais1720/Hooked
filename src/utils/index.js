@@ -4,5 +4,8 @@ export {
   navigateToPreviousPage,
   sortPostsByDate,
   sortPostsByLikes,
-  stopBubbling
+  stopBubbling,
 } from "./helperFunctions";
+
+export { useDocumentTitle } from "./useDocumentTitle"
+export { useDebouncedFunction } from "./useDebouncedFunction"
