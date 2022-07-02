@@ -4,7 +4,6 @@ export const configureAxios = () => {
     (config) => {
       const userToken = localStorage.getItem("USER_TOKEN");
       config.baseURL = "https://hooked-social-api.herokuapp.com";
-      config.headers.Authorization = `Bearer ${userToken}`;
       config.headers.withCredentials=true;
       return config;
     },
