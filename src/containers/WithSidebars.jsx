@@ -11,7 +11,7 @@ export function WithSidebars() {
     //eslint-disable-next-line
   }, []);
   return (
-    <div className="mb-20 md:mb-0 md:grid md:grid-cols-[6rem_auto_18rem] lg:grid-cols-[18rem_auto_20rem]">
+    <div className="mb-20 md:mb-0 md:grid md:grid-cols-[6rem_auto_22rem] lg:grid-cols-[18rem_auto_22rem]">
       <Navbar />
       <main className="min-h-screen">
         <Outlet />

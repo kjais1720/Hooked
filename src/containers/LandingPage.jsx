@@ -6,11 +6,16 @@ export function LandingPage() {
   const { isLoggedIn } = useSelector((state) => state.user);
   if (isLoggedIn) navigate("/home");
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
         <h1 className="text-gray-600 dark:text-gray-200">Welcome</h1>
-        <Link className="p-4 mt-4 rounded-2xl bg-primary text-gray-600" to="/auth/login">Login</Link>
+        <Link
+          className="mt-4 rounded-2xl bg-primary p-4 text-gray-600"
+          to="/auth/login"
+        >
+          Login
+        </Link>
       </div>
     </div>
-  )
+  );
 }

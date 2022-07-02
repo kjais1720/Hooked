@@ -7,8 +7,10 @@ import { toast } from "react-hot-toast";
 import { errorMessages } from "constants";
 import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "utils";
 
 export function SignUp() {
+  useDocumentTitle("Signup | Hooked")
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();

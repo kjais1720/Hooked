@@ -3,11 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { likePost, bookmarkPost } from "services";
 import { stopBubbling } from "utils";
 import {
-  FaThumbsUp,
-  FaBookmark,
   FaCommentDots,
-  FaShareAlt,
 } from "react-icons/fa";
+import {
+  BsHandThumbsUp,
+  BsBookmark,
+  BsHandThumbsUpFill,
+  BsBookmarkFill,
+  BsShare
+} from "react-icons/bs";
 import {
   ImageSlider,
   ProfileImage,
@@ -51,7 +55,7 @@ export function Post({
   const sharePost = async (e) => {
     e.stopPropagation();
     await navigator.share({
-      url: `http://localhost:3000/post/${_id}`,
+      url: `https://hooked-social.vercel.app/post/${_id}`,
       title: `${firstname} ${lastname}'s post on Hooked`,
       text: content,
     });
@@ -64,12 +68,15 @@ export function Post({
     e.stopPropagation();
     dispatch(bookmarkPost(_id));
   };
-  const isPostLiked = likes?.some((id) => id === currentUser._id);
-  //eslint-disable-next-line
-  const isPostSaved = bookmarks?.some((id) => id === _id);
+  const isPostLiked = likes?.some(
+    (likedUserId) => likedUserId === currentUser._id
+  );
+  const isPostBookmarked = bookmarks?.some(
+    (bookmarkedPostId) => bookmarkedPostId === _id
+  );
   const isPostLoading =
     status.value === "pending" && status.type === "getAllPosts";
-  const isPostLikePending =
+  const isPostLikeOrBookmarkPending =
     status.value === "pending" &&
     status.type === "likePost" &&
     status.payload === _id;
@@ -78,7 +85,7 @@ export function Post({
   ) : (
     <article
       onClick={navigateToPostPage}
-      className="text-dark-2 flex w-full cursor-pointer flex-col gap-2 rounded-lg bg-light-100 p-4 shadow-md dark:bg-dark-100 dark:text-gray-100"
+      className="text-dark-2 flex w-full cursor-pointer flex-col gap-2 rounded-2xl bg-light-100 p-4 shadow-md dark:bg-dark-100 dark:text-gray-100"
     >
       <header className="flex">
         <div className="flex gap-2">
@@ -116,7 +123,7 @@ export function Post({
         )}
       </header>
       <div className="flex flex-col gap-2">
-        <p>{content}</p>
+        <p className="text-sm">{content}</p>
         {images && (
           <ImageSlider
             showOriginalImageSize={isInSinglePostPage}
@@ -129,7 +136,7 @@ export function Post({
           onClick={(e) => e.stopPropagation()}
           className="flex justify-between"
         >
-          {isPostLikePending ? (
+          {isPostLikeOrBookmarkPending ? (
             <button>
               <Spinner size="sm" color="primary" />
             </button>
@@ -137,11 +144,11 @@ export function Post({
             <button
               title={isPostLiked ? "Unlike" : "Like"}
               onClick={likeHandler}
-              className={`${isPostLiked && "bg-primary/50 text-dark-100 "}
-                          align flex items-center gap-1 rounded-lg p-1 text-sm 
-                          font-light text-primary transition-all hover:bg-primary/25`}
+              className={`align flex items-center gap-1 rounded-lg p-1 text-sm 
+                          font-light text-primary transition-all hover:bg-primary/25
+              `}
             >
-              <FaThumbsUp />
+              {isPostLiked ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}
               <span>{likes?.length}</span>
             </button>
           )}
@@ -154,15 +161,15 @@ export function Post({
           </Link>
           <button
             onClick={addPostToBookmarks}
-            className="rounded-lg p-1 text-sm text-primary hover:bg-primary/25"
+            className="rounded-lg p-1 text-sm font-extrabold text-primary hover:bg-primary/25"
           >
-            <FaBookmark />
+            {isPostBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
           </button>
           <button
             onClick={sharePost}
             className="rounded-lg p-1 text-sm text-primary hover:bg-primary/25"
           >
-            <FaShareAlt />
+            <BsShare />
           </button>
         </footer>
       ) : (

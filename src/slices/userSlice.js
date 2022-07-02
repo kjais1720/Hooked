@@ -147,7 +147,7 @@ export const userSlice = createSlice({
       .addCase(bookmarkPost.fulfilled, (state, action) => {
         state.status.value = "fulfilled";
         const postId = action.payload;
-        state.currentUser.savedPosts.push(postId);
+        state.currentUser.bookmarks.push(postId);
       })
       .addCase(bookmarkPost.rejected, (state) => {
         state.status.value = "error";

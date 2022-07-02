@@ -35,20 +35,20 @@ export function ProfilePosts() {
     {
       key: 0,
       type: "Posts",
-      path: `/profile${username ? '/'+username : ""}`,
+      path: `/profile${username ? "/" + username : ""}`,
     },
     {
       key: 1,
       type: "Likes",
-      path: `/profile/${username ? username+"/" : ""}likes`,
+      path: `/profile/${username ? username + "/" : ""}likes`,
     },
     {
       key: 2,
       type: "Bookmarks",
-      path: `/profile/${username ? username+"/" : ""}bookmarks`,
+      path: `/profile/${username ? username + "/" : ""}bookmarks`,
     },
   ];
-  const isLinkActive = path => path === pathname;
+  const isLinkActive = (path) => path === pathname;
   return (
     <section className="flex flex-col gap-4 p-4">
       <div className="flex gap-2">
@@ -57,13 +57,11 @@ export function ProfilePosts() {
             <Link
               key={key}
               to={path}
-              className={
-                `flex-grow rounded-2xl p-2 px-4 text-center dark:bg-dark-100 ${
-                  isLinkActive(path)
-                    ? "bg-dark-100 text-primary"
-                    : "bg-light-100 text-dark-200 dark:text-light-200"
-                }`
-              }
+              className={`flex-grow rounded-2xl p-2 px-4 text-center dark:bg-dark-100 ${
+                isLinkActive(path)
+                  ? "bg-dark-100 text-primary"
+                  : "bg-light-100 text-dark-200 dark:text-light-200"
+              }`}
             >
               {type}
             </Link>

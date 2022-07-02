@@ -60,7 +60,7 @@ export function EditProfileModal({ user, closeModal }) {
       className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
     >
       <motion.form
-        transition={{ ease:"easeInOut", duration:1}}
+        transition={{ ease: "easeInOut", duration: 1 }}
         onSubmit={submitHandler}
         onClick={(e) => e.stopPropagation()}
         className="relative flex min-h-screen w-screen max-w-lg
@@ -109,7 +109,7 @@ export function EditProfileModal({ user, closeModal }) {
             hidden
           />
         </div>
-        <div className="-mb-8 w-fit m-auto flex -translate-y-1/2">
+        <div className="m-auto -mb-8 flex w-fit -translate-y-1/2">
           {formData.profilePicture ? (
             <img
               className="m-auto h-32 w-32 rounded-full border-8

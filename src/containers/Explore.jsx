@@ -6,7 +6,10 @@ import {
   SearchAndSuggestion,
 } from "components";
 import { getExploreFeedPosts, setSortingOrder } from "slices";
+import { useDocumentTitle } from "utils";
+
 export function Explore() {
+  useDocumentTitle("Explore | Hooked")
   const {
     status: { type, value },
     sortBy,

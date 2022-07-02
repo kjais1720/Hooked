@@ -71,7 +71,13 @@ export function Profile({
           <div className="text-center md:text-left">
             <div className="flex justify-center gap-8 md:justify-start">
               <h4 className="flex items-center justify-center gap-2 text-sm font-light text-gray-500 dark:text-gray-400 ">
-                {location ? <><FaMapMarkerAlt /> {location}</> : ""}
+                {location ? (
+                  <>
+                    <FaMapMarkerAlt /> {location}
+                  </>
+                ) : (
+                  ""
+                )}
               </h4>
               <a
                 href={website}
@@ -79,12 +85,16 @@ export function Profile({
                 rel="noopener noreferrer"
                 className="flex cursor-pointer items-center gap-1 text-indigo-600"
               >
-                {website ? <><FaLink /> {website} </> : ""}
+                {website ? (
+                  <>
+                    <FaLink /> {website}{" "}
+                  </>
+                ) : (
+                  ""
+                )}
               </a>
             </div>
-            <p className="text-sm dark:text-gray-300">
-              {about}
-            </p>
+            <p className="text-sm dark:text-gray-300">{about}</p>
           </div>
           <div className="flex justify-center gap-2 md:justify-start md:gap-4">
             <div
@@ -97,9 +107,7 @@ export function Profile({
                 Followers
               </span>
             </div>
-            <div
-              className=" flex-grow rounded-2xl bg-light-100 p-4 text-center text-xs dark:bg-dark-100  md:flex-grow-0"
-            >
+            <div className=" flex-grow rounded-2xl bg-light-100 p-4 text-center text-xs dark:bg-dark-100  md:flex-grow-0">
               <span className="text-primary">{following?.length}</span>
               <span className="ml-1 text-gray-600 dark:text-gray-400">
                 Following

@@ -37,7 +37,7 @@ export function CreatePost({ postToEdit }) {
         content: postContent,
       }));
     }
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, []);
 
   const handleContentChange = (event) => {
@@ -55,7 +55,9 @@ export function CreatePost({ postToEdit }) {
         const imageToRemove = postToEdit.images.find(
           ({ src }) => src === imageUrl
         );
-        return imageToRemove ? {...prev, [imageToRemove.publicId]:imageToRemove} : prev;
+        return imageToRemove
+          ? { ...prev, [imageToRemove.publicId]: imageToRemove }
+          : prev;
       });
     }
   };
@@ -72,19 +74,19 @@ export function CreatePost({ postToEdit }) {
         data.append(`${altIndex}`, imageAlts[altIndex]);
       }
       if (Object.keys(imagesToRemoveFromServer).length > 0) {
-        console.log({imagesToRemoveFromServer})
+        console.log({ imagesToRemoveFromServer });
         data.append("imagesToRemove", JSON.stringify(imagesToRemoveFromServer));
       }
-      if(isPostBeingEdited){
-        dispatch(updatePost({updatedPost:data, postId:postToEdit._id}))
-      }else{
+      if (isPostBeingEdited) {
+        dispatch(updatePost({ updatedPost: data, postId: postToEdit._id }));
+      } else {
         dispatch(createPost(data));
       }
     }
     setPostUploadStarted(true);
   };
   if (
-    (status.type === "createPost" || status.type==="updatePost") &&
+    (status.type === "createPost" || status.type === "updatePost") &&
     status.value === "fulfilled" &&
     postUploadStarted
   ) {

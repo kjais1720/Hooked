@@ -3,27 +3,38 @@ import { useParams, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { getPostById } from "slices";
 import { Post, CreateComment } from "components";
-import { navigateToPreviousPage } from "utils";
-export function SinglePost(){
-  const { postId } = useParams()
+import { navigateToPreviousPage, useDocumentTitle } from "utils";
+export function SinglePost() {
+  useDocumentTitle("See Post | Hooked")
+  const { postId } = useParams();
   const navigate = useNavigate();
-  const goToPreviousPage = () => navigateToPreviousPage(navigate)
-  const post = useSelector(state=>getPostById(state,postId)) ?? {};
+  const goToPreviousPage = () => navigateToPreviousPage(navigate);
+  const post = useSelector((state) => getPostById(state, postId)) ?? {};
   const comments = post.comments?.length ? post.comments : [];
-  return(
-    <section className="my-2 px-2 relative z-10 flex flex-col gap-4">
-      <div className="p-2 flex items-center gap-4 rounded-2xl bg-light-100 dark:bg-dark-100">
-        <button onClick={goToPreviousPage} className="text-2xl text-gray-600 dark:text-gray-200">
-          <FaArrowLeft/>
+  return (
+    <section className="relative z-10 my-2 flex flex-col gap-4 px-2">
+      <div className="flex items-center gap-4 rounded-2xl bg-light-100 p-2 dark:bg-dark-100">
+        <button
+          onClick={goToPreviousPage}
+          className="text-2xl text-gray-600 dark:text-gray-200"
+        >
+          <FaArrowLeft />
         </button>
         <span className="text-2xl text-gray-600 dark:text-gray-200">Post</span>
       </div>
-      <Post {...post} isSinglePostPage />
+      <Post {...post} isInSinglePostPage />
       <CreateComment postId={postId} />
-      <p className="text-lg text-primary">Comments <span className="text-gray-600 dark:text-gray-200">{comments?.length ?? "0"}</span></p>
+      <p className="text-lg text-primary">
+        Comments{" "}
+        <span className="text-gray-600 dark:text-gray-200">
+          {comments?.length ?? "0"}
+        </span>
+      </p>
       <div className="flex flex-col gap-2">
-      {comments.map(comment => <Post key={comment._id} isCommentPost {...comment} />)}
+        {comments.map((comment) => (
+          <Post key={comment._id} isCommentPost {...comment} />
+        ))}
       </div>
     </section>
-  )
-} 
+  );
+}

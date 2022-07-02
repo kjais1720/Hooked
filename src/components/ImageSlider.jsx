@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
-import { stopBubbling } from "utils"
+import { stopBubbling } from "utils";
 const x_position = {
   1: "-translate-x-0",
   2: "-translate-x-[90%]",
@@ -34,9 +34,9 @@ export function ImageSlider({ images, showOriginalImageSize }) {
         {images.map(({ src, title }, idx) => (
           <figure
             key={idx}
-            className={`${
-              images.length > 1 ? "w-[90%]" : "w-[100%]"
-            } ${showOriginalImageSize || "h-[50vh] md:h-[60vh]"} min-w-[90%] flex-grow rounded-2xl bg-light-200 dark:bg-dark-200`}
+            className={`${images.length > 1 ? "w-[90%]" : "w-[100%]"} ${
+              showOriginalImageSize || "h-[50vh] md:h-[60vh]"
+            } min-w-[90%] flex-grow rounded-2xl bg-light-200 dark:bg-dark-200`}
           >
             <img
               className="h-full w-full rounded-2xl object-contain"
@@ -48,18 +48,25 @@ export function ImageSlider({ images, showOriginalImageSize }) {
       </div>
 
       {images.length > 1 && (
-        <div onClick={stopBubbling} className="absolute top-1/2 flex w-full -translate-y-1/2 justify-between px-2">
+        <div
+          onClick={stopBubbling}
+          className="absolute top-1/2 flex w-full -translate-y-1/2 justify-between px-2"
+        >
           <button
             title="previous picture"
             onClick={moveLeft}
-            className={`relative ${activeImg===1 && "hidden"} rounded-full text-xl text-gray-200 shadow-lg`}
+            className={`relative ${
+              activeImg === 1 && "hidden"
+            } rounded-full text-xl text-gray-200 shadow-lg`}
           >
             <FaArrowAltCircleLeft />
           </button>
           <button
             title="next picture"
             onClick={moveRight}
-            className={`${activeImg===images.length && "hidden"} ml-auto rounded-full text-xl text-gray-200 shadow-xl`}
+            className={`${
+              activeImg === images.length && "hidden"
+            } ml-auto rounded-full text-xl text-gray-200 shadow-xl`}
           >
             <FaArrowAltCircleRight />
           </button>

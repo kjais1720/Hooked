@@ -2,11 +2,13 @@ import { Profile, Spinner } from "components";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "services";
+import { useDocumentTitle } from "utils";
 export function CommonUserProfile() {
   const dispatch = useDispatch();
   const { username } = useParams();
   const { status, allUsers, currentUser } = useSelector((state) => state.user);
   const isPageLoading = status.value === "pending" && status.type === "getAllUsers";
+  useDocumentTitle(`${username} | Hooked`)
   let user;
   let isUserFollowed;
   if (!isPageLoading) {
