@@ -2,15 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { likePost, bookmarkPost } from "services";
 import { stopBubbling } from "utils";
-import {
-  FaCommentDots,
-} from "react-icons/fa";
+import { BiComment } from "react-icons/bi";
 import {
   BsHandThumbsUp,
   BsBookmark,
   BsHandThumbsUpFill,
   BsBookmarkFill,
-  BsShare
+  BsShare,
 } from "react-icons/bs";
 import {
   ImageSlider,
@@ -34,8 +32,12 @@ export function Post({
   isInSinglePostPage,
   postIdOfComment,
 }) {
-  const { allUsers, currentUser } = useSelector((state) => state.user);
-  const { status } = useSelector((state) => state.posts);
+  const {
+    allUsers,
+    currentUser,
+    status: userStatus,
+  } = useSelector((state) => state.user);
+  const { status: postStatus } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const navigateToPostPage = () => {
@@ -51,7 +53,7 @@ export function Post({
   } else {
     postUser = allUsers.find(({ _id }) => _id === userId) ?? {};
   }
-  const { firstname, lastname, username, bookmarks } = postUser;
+  const { firstname, lastname, username } = postUser;
   const sharePost = async (e) => {
     e.stopPropagation();
     await navigator.share({
@@ -68,19 +70,21 @@ export function Post({
     e.stopPropagation();
     dispatch(bookmarkPost(_id));
   };
-  const isPostLiked = likes?.some(
-    (likedUserId) => likedUserId === currentUser._id
-  );
-  const isPostBookmarked = bookmarks?.some(
-    (bookmarkedPostId) => bookmarkedPostId === _id
-  );
+  const isPostLiked = likes?.includes(currentUser._id);
+  const isPostBookmarked = currentUser.bookmarks?.includes(_id);
   const isPostLoading =
-    status.value === "pending" && status.type === "getAllPosts";
-  const isPostLikeOrBookmarkPending =
-    status.value === "pending" &&
-    status.type === "likePost" &&
-    status.payload === _id;
-  return isPostLoading ? (
+    postStatus.value === "pending" && postStatus.type === "getAllPosts";
+
+  const isPostLikePending =
+    postStatus.value === "pending" &&
+    postStatus.type === "likePost" &&
+    postStatus.payload === _id
+  const isPostBookmarkPending =
+    userStatus.value==="pending" &&
+    userStatus.type === "bookmarkPost" &&
+    userStatus.payload === _id;
+
+    return isPostLoading ? (
     <Spinner size="md" />
   ) : (
     <article
@@ -136,7 +140,7 @@ export function Post({
           onClick={(e) => e.stopPropagation()}
           className="flex justify-between"
         >
-          {isPostLikeOrBookmarkPending ? (
+          {isPostLikePending ? (
             <button>
               <Spinner size="sm" color="primary" />
             </button>
@@ -156,15 +160,21 @@ export function Post({
             to={`/post/${_id}`}
             className="flex items-center gap-1 rounded-lg p-1 text-sm text-primary hover:bg-primary/25"
           >
-            <FaCommentDots />
+            <BiComment />
             <span>{comments?.length}</span>
           </Link>
-          <button
-            onClick={addPostToBookmarks}
-            className="rounded-lg p-1 text-sm font-extrabold text-primary hover:bg-primary/25"
-          >
-            {isPostBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
-          </button>
+          {isPostBookmarkPending ? (
+            <button>
+              <Spinner size="sm" />
+            </button>
+          ) : (
+            <button
+              onClick={addPostToBookmarks}
+              className="rounded-lg p-1 text-sm font-extrabold text-primary hover:bg-primary/25"
+            >
+              {isPostBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
+            </button>
+          )}
           <button
             onClick={sharePost}
             className="rounded-lg p-1 text-sm text-primary hover:bg-primary/25"

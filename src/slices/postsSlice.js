@@ -9,6 +9,7 @@ import {
   deleteComment,
 } from "services";
 import { sortPostsByDate, sortPostsByLikes } from "utils";
+import { POST_LIKED, POST_UNLIKED } from "constants";
 import { toast } from "react-hot-toast";
 
 const initialState = {
@@ -96,10 +97,10 @@ const postsSlice = createSlice({
         const { postId, data, userId } = action.payload;
         const postToLike = state.allPosts.find(({ _id }) => _id === postId);
         switch (data) {
-          case "Post liked":
+          case POST_LIKED:
             postToLike.likes.push(userId);
             break;
-          case "Post unliked":
+          case POST_UNLIKED:
             postToLike.likes = postToLike.likes.filter((id) => id !== userId);
             break;
           default:

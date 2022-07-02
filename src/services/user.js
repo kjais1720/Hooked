@@ -44,8 +44,8 @@ export const unfollowUser = createAsyncThunk("user/unfollowUser",async (unfollow
 })
 
 export const bookmarkPost = createAsyncThunk("user/bookmarkPost",async (postId) => {
-await axios.put(`/user/bookmarkPost/${postId}`);
-  return postId
+  const { data } = await axios.put(`/user/bookmarkPost/${postId}`);
+  return {postId, data}
 })
 
 export const getNotifications = createAsyncThunk("user/getNotifications", async ()=>{
