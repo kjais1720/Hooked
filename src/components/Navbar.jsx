@@ -14,7 +14,7 @@ export function Navbar() {
                         left-0 right-0 z-10
                         m-2 flex items-center justify-around
                         gap-2 rounded-3xl bg-light-100 text-2xl font-medium
-                        dark:bg-primary dark:text-dark-200 md:sticky md:top-2 
+                        dark:bg-primary dark:text-dark-200 md:top-0 md:max-w-[17rem] md:w-[5rem] lg:w-[17rem] 
                         md:flex-col md:items-center md:justify-start md:gap-2 md:bg-light-200
                         md:p-4 md:dark:bg-dark-100 dark:md:text-gray-200 lg:items-start"
       >

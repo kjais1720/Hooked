@@ -37,7 +37,7 @@ export function SearchAndSuggestion() {
   };
   return (
     <div>
-      <div className="m-2 rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 md:sticky md:top-2 ">
+      <div className="m-2 rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 lg:w-[21rem] md:w-[17rem] fixed top-0 ">
         <div className="relative rounded-2xl bg-light-200 dark:bg-dark-200">
           <input
             type="text"
