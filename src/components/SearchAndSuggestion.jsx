@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProfileCard, AllUsersList, Spinner } from "components";
+import { ProfileCard, UsersList, Spinner, Modal } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "slices";
 import { useDebouncedFunction } from "utils";
@@ -28,7 +28,6 @@ export function SearchAndSuggestion() {
         )
       );
     });
-    console.log(foundUsers);
     setUsersFoundFromsearch(foundUsers);
   };
   const debouncedSearchFunction = useDebouncedFunction(searchForUser, 1000);
@@ -37,7 +36,7 @@ export function SearchAndSuggestion() {
   };
   return (
     <div>
-      <div className="m-2 rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 lg:w-[21rem] md:w-[17rem] fixed top-0 ">
+      <div className="m-2 rounded-2xl bg-light-200 text-gray-600 dark:bg-dark-200 dark:text-gray-200 md:fixed md:top-0 md:w-[17rem] lg:w-[21rem] ">
         <div className="relative rounded-2xl bg-light-200 dark:bg-dark-200">
           <input
             type="text"
@@ -49,10 +48,10 @@ export function SearchAndSuggestion() {
             onChange={searchOnInputChange}
           />
           {usersFoundFromSearch.length > 0 ? (
-            <div className="absolute mt-2 rounded-2xl flex w-full flex-col gap-2 bg-dark-100 shadow-dark-200 shadow-top shadow-lg px-2 py-4 max-h-[60vh] overflow-y-auto overflow-x-hidden ">
-                {usersFoundFromSearch.map((user) => (
-                  <ProfileCard key={user._id} {...user} />
-                ))}
+            <div className="absolute -mt-4 flex max-h-[60vh] w-full flex-col gap-2 overflow-y-auto overflow-x-hidden rounded-2xl bg-light-100 px-2 py-4 shadow-lg dark:bg-dark-100 dark:shadow-dark-200 ">
+              {usersFoundFromSearch.map((user) => (
+                <ProfileCard key={user._id} {...user} />
+              ))}
             </div>
           ) : (
             ""
@@ -68,7 +67,6 @@ export function SearchAndSuggestion() {
               Show More
             </button>
           </div>
-          <AllUsersList />
           {isLoading ? (
             <Spinner size="md" />
           ) : (
@@ -76,6 +74,9 @@ export function SearchAndSuggestion() {
           )}
         </div>
       </div>
+      <Modal childName="allUsersList">
+        <UsersList />
+      </Modal>
     </div>
   );
 }
