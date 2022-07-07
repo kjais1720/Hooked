@@ -44,15 +44,18 @@ export function PostImagePreview({ url, index, removeImage, setFormData }) {
         Alt
       </button>
       {showAltTextPopover && (
-        <div onClick={e=>e.stopPropagation()} className="absolute -bottom-2 rounded-2xl bg-light-200 p-2 dark:bg-dark-200">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="absolute -bottom-2 rounded-2xl bg-light-200 p-2 dark:bg-dark-200"
+        >
           <input
             value={altText}
             onChange={changeHandler}
             type="text"
-            className="w-full text-xs rounded-xl bg-light-100 p-1 dark:bg-dark-100 dark:text-gray-200"
+            className="w-full rounded-xl bg-light-100 p-1 text-xs dark:bg-dark-100 dark:text-gray-200"
           />
           <button
-            className="rounded-lg text-xs bg-primary p-1 mt-1 dark:text-dark-200"
+            className="mt-1 rounded-2xl bg-primary p-1 text-xs dark:text-dark-200"
             onClick={saveText}
           >
             save

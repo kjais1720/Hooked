@@ -3,12 +3,12 @@ import { getUserById, getCurrentUser } from "slices";
 
 export function ProfileImage({ userId, size, bgShade, isCurrentUserProfile }) {
   const imageSizes = {
-    sm: "1rem",
+    sm: "2rem",
     md: "3rem",
     lg: "8rem",
   };
   const fontSizes = {
-    sm: "text-xl",
+    sm: "text-sm",
     md: "text-2xl",
     lg: "text-4xl",
   };
@@ -33,8 +33,7 @@ export function ProfileImage({ userId, size, bgShade, isCurrentUserProfile }) {
     />
   ) : (
     <span
-      className={`flex min-h-[2em] min-w-[2em] 
-                  select-none items-center  
+      className={`flex select-none items-center  
                   justify-center rounded-full
                   border-none ${bgVariants[bgShade]}
                   ${fontSizes[size]} font-bold text-primary`}

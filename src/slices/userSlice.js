@@ -10,6 +10,8 @@ import {
   getNotifications,
   deleteNotification,
 } from "services";
+import { BOOKMARK_ADDED, BOOKMARK_REMOVED } from "constants";
+
 const initialState = {
   currentUser: {},
   allUsers: [],
@@ -140,14 +142,30 @@ export const userSlice = createSlice({
         state.status.value = "error";
       })
       //Bookmark a Post
-      .addCase(bookmarkPost.pending, (state) => {
-        state.status.type = "bookmarkPost";
-        state.status.value = "pending";
-      })
+      .addCase(
+        bookmarkPost.pending,
+        ( state, { meta: { arg } }) => {
+          state.status.type = "bookmarkPost";
+          state.status.value = "pending";
+          state.status.payload = arg;
+        }
+      )
       .addCase(bookmarkPost.fulfilled, (state, action) => {
         state.status.value = "fulfilled";
-        const postId = action.payload;
-        state.currentUser.savedPosts.push(postId);
+        const { postId, data } = action.payload;
+        switch (data) {
+          case BOOKMARK_ADDED:
+            console.log("here")
+            state.currentUser.bookmarks.push(postId);
+            break;
+          case BOOKMARK_REMOVED:
+            console.log("here now")
+            const indexOfPostToRemove = state.currentUser.bookmarks.findIndex((id)=> id === postId);
+            state.currentUser.bookmarks.splice(indexOfPostToRemove,1)
+            break;
+          default:
+            break;
+        }
       })
       .addCase(bookmarkPost.rejected, (state) => {
         state.status.value = "error";
@@ -173,11 +191,14 @@ export const userSlice = createSlice({
       .addCase(deleteNotification.fulfilled, (state, action) => {
         state.status.value = "fulfilled";
         const deletedNotificationId = action.payload;
-        state.currentUser.notifications = state.currentUser.notifications.filter(({_id}) => _id !== deletedNotificationId)
+        state.currentUser.notifications =
+          state.currentUser.notifications.filter(
+            ({ _id }) => _id !== deletedNotificationId
+          );
       })
       .addCase(deleteNotification.rejected, (state) => {
         state.status.value = "error";
-      })
+      });
   },
 });
 export const getCurrentUser = (state) => state.user.currentUser;

@@ -7,8 +7,10 @@ import * as yup from "yup";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
+import { useDocumentTitle } from "utils";
 
 export function Login() {
+  useDocumentTitle("Login | Hooked")
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();

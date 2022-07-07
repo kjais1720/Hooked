@@ -16,9 +16,12 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
     dispatch(unfollowUser(_id));
   };
 
-  const isLoading = (status.type==="followUser" || status.type==="unfollowUser") && status.payload === _id && status.value === "pending";
+  const isLoading =
+    (status.type === "followUser" || status.type === "unfollowUser") &&
+    status.payload === _id &&
+    status.value === "pending";
   return (
-    <article className="flex shadow-md gap-2 rounded-2xl bg-light-100 p-4 dark:bg-dark-100">
+    <article className="flex gap-2 rounded-2xl bg-light-100 p-4 shadow-md dark:shadow-dark-200 dark:bg-dark-100">
       <Link to={`/profile/${username}`}>
         <ProfileImage userId={_id} size="md" bgShade="darker" />
       </Link>
@@ -26,7 +29,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
         <h3 className="text-sm font-medium text-gray-600 dark:text-light-200">
           {firstname} {lastname}
         </h3>
-        <h4 className="text-sm text-gray-400 dark:text-gray-400">
+        <h4 className="text-xs text-gray-400 dark:text-gray-400">
           @{username}
         </h4>
       </Link>
@@ -35,7 +38,10 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
           <Spinner size="md" />
         </button>
       ) : (
-        <button onClick={followUnfollowUser} className="ml-auto text-sm text-primary">
+        <button
+          onClick={followUnfollowUser}
+          className="ml-auto text-sm text-primary"
+        >
           {isUserFollowed ? "Unfollow" : "Follow"}
         </button>
       )}

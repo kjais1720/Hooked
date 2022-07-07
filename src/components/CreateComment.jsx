@@ -19,14 +19,14 @@ export function CreateComment({ postId }) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(postComment({ postId, formData }));
-    setFormData({content:""})
+    setFormData({ content: "" });
   };
   return (
     <div>
       <article
         className="hidden rounded-2xl bg-light-100 p-2
                         text-gray-600 dark:bg-dark-100
-                        dark:text-gray-200 md:block"
+                        dark:text-gray-200 md:block shadow-md"
       >
         <div class="grid grid-cols-[3rem_auto]">
           <figure>
@@ -49,17 +49,20 @@ export function CreateComment({ postId }) {
           </form>
         </div>
       </article>
-      <form onSubmit={submitHandler} className="z-100 fixed bottom-2 left-2 right-2 p-4 flex gap-1 rounded-3xl bg-primary text-gray-600 md:hidden">
+      <form
+        onSubmit={submitHandler}
+        className="z-100 fixed bottom-2 left-2 right-2 flex gap-1 rounded-3xl bg-primary p-4 text-gray-600 md:hidden"
+      >
         <textarea
           className="flex-grow border-none bg-transparent
-                     outline-transparent focus:border-none
-                     focus:outline-none focus-visible:border-none focus-visible:outline-none
-                     placeholder:text-gray-600
-                     text-lg
+                     text-lg outline-transparent
+                     placeholder:text-gray-600 focus:border-none focus:outline-none
+                     focus-visible:border-none
+                     focus-visible:outline-none
                      "
           name="content"
           value={formData.content}
-          onChange = {textChangeHandler}
+          onChange={textChangeHandler}
           placeholder="Type your comment here..."
           rows="1"
         />

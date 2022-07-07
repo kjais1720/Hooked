@@ -6,23 +6,24 @@ import {
   SearchAndSuggestion,
 } from "components";
 import { getExploreFeedPosts, setSortingOrder } from "slices";
+import { useDocumentTitle } from "utils";
+import { TopTitleBar } from "components";
 export function Explore() {
+  useDocumentTitle("Explore | Hooked");
+  const dispatch = useDispatch();
   const {
     status: { type, value },
     sortBy,
   } = useSelector((state) => state.posts);
-  const dispatch = useDispatch();
+  const exploreFeedPosts = useSelector(getExploreFeedPosts);
   const sortPosts = (e) => {
     dispatch(setSortingOrder(e.target.value));
   };
-  const exploreFeedPosts = useSelector(getExploreFeedPosts);
 
   const isPageLoading = type === "getAllPosts" && value === "pending";
   return (
     <section className="rounded-2xl bg-light-200 p-2 dark:bg-dark-200">
-      <h2 className="mb-2 rounded-2xl bg-light-100 p-4 text-left text-xl font-medium text-gray-600 dark:bg-dark-100 dark:text-gray-200">
-        Explore
-      </h2>
+      <TopTitleBar title="Explore" />
       {isPageLoading ? (
         <div className="mt-4 flex flex-col gap-2">
           <SkeletonLoader />

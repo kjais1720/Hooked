@@ -7,9 +7,12 @@ export function NotFound() {
         Page Not Found
       </div>
       <button class="mt-5">
-        <Link to="/home" class="group relative inline-block text-sm font-medium text-primary focus:outline-none focus:ring ">
-          <span class="absolute inset-0 rounded-2xl translate-x-0.5 translate-y-0.5 bg-primary transition-transform group-hover:translate-y-0 group-hover:translate-x-0"></span>
-          <span class="relative rounded-2xl block border border-current bg-dark-200 px-8 py-3">
+        <Link
+          to="/home"
+          class="group relative inline-block text-sm font-medium text-primary focus:outline-none focus:ring "
+        >
+          <span class="absolute inset-0 translate-x-0.5 translate-y-0.5 rounded-2xl bg-primary transition-transform group-hover:translate-y-0 group-hover:translate-x-0"></span>
+          <span class="relative block rounded-2xl border border-current bg-dark-200 px-8 py-3">
             Go Home
           </span>
         </Link>

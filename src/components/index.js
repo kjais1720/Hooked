@@ -12,7 +12,7 @@ export { SearchAndSuggestion } from "./SearchAndSuggestion";
 export { Spinner } from "./Spinner";
 export { ProfileCard } from "./ProfileCard";
 export { Modal } from "./Modal";
-export { AllUsersList } from "./AllUsersList";
+export { UsersList } from "./UsersList";
 export { Post } from "./Post";
 export { ImageSlider } from "./ImageSlider";
 export { PostOptionsPopover } from "./PostOptionsPopover";
@@ -24,3 +24,4 @@ export { NoPostsFound } from "./NoPostsFound";
 export { CreateComment } from "./CreateComment";
 export { ProfilePosts } from "./ProfilePosts";
 export { NotificationCard } from "./NotificationCard";
+export { TopTitleBar } from "./TopTitleBar"

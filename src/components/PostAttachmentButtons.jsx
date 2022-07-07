@@ -3,7 +3,7 @@ import { isFileSizeInValid } from "utils";
 import { FaImage, FaCamera } from "react-icons/fa";
 import { MdInsertEmoticon } from "react-icons/md";
 import Picker from "emoji-picker-react";
-import {toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export function NewPostAttachmentButtons({
   setPostFormData,
