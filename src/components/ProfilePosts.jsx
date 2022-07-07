@@ -57,7 +57,7 @@ export function ProfilePosts() {
             <Link
               key={key}
               to={path}
-              className={`flex-grow rounded-2xl p-2 px-4 text-center dark:bg-dark-100 ${
+              className={`flex-grow shadow-md rounded-2xl p-2 px-4 text-center dark:bg-dark-100 ${
                 isLinkActive(path)
                   ? "bg-dark-100 text-primary"
                   : "bg-light-100 text-dark-200 dark:text-light-200"
@@ -70,8 +70,14 @@ export function ProfilePosts() {
       </div>
       {arePostsLoading ? (
         <SkeletonLoader />
-      ) : (
+      ) : postsToShow.length > 0 ? (
         postsToShow.map((post) => <Post key={post._id} {...post} />)
+      ) : (
+        <div class="text-center">
+          <div className="w-fit text-xl m-auto mt-8 rotate-12 rounded bg-primary dark:text-dark-200 text-light-200 px-2">
+            No posts to show
+          </div>
+        </div>
       )}
     </section>
   );

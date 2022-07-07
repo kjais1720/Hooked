@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Post, SkeletonLoader, NoPostsFound } from "components";
+import { Post, SkeletonLoader, NoPostsFound, TopTitleBar } from "components";
 import { getTimelinePosts } from "slices";
 import { setSortingOrder } from "slices";
 export function Timeline() {
@@ -15,9 +15,7 @@ export function Timeline() {
   const isPageLoading = type === "getAllPosts" && value === "pending";
   return (
     <section className="rounded-2xl bg-light-200 p-2 dark:bg-dark-200">
-      <h2 className="mb-2 rounded-2xl bg-light-100 p-4 text-left text-xl font-medium text-gray-600 dark:bg-dark-100 dark:text-gray-200">
-        Home
-      </h2>
+      <TopTitleBar title="Home"/>
       <div className="flex items-center justify-between p-4">
         <p className="text-xl font-medium">Posts</p>
         <div>
@@ -25,8 +23,8 @@ export function Timeline() {
           <button
             className={`rounded-l-2xl py-1 px-2 text-sm ${
               sortBy === "TRENDING"
-                ? "bg-primary text-dark-200"
-                : "bg-dark-100 text-gray-200"
+                ? "bg-primary text-gray-600"
+                : "bg-light-100 text-gray-600 dark:bg-dark-100 dark:text-gray-200"
             }`}
             value="TRENDING"
             onClick={sortPosts}

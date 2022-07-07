@@ -14,15 +14,22 @@ export function Navbar() {
                         left-0 right-0 z-10
                         m-2 flex items-center justify-around
                         gap-2 rounded-3xl bg-light-100 text-2xl font-medium
-                        dark:bg-primary dark:text-dark-200 md:top-0 md:max-w-[17rem] md:w-[5rem] lg:w-[17rem] 
-                        md:flex-col md:items-center md:justify-start md:gap-2 md:bg-light-200
-                        md:p-4 md:dark:bg-dark-100 dark:md:text-gray-200 lg:items-start"
+                        dark:bg-primary dark:text-dark-200 md:top-0 md:w-[5rem] md:max-w-[17rem] md:flex-col 
+                        md:items-center md:justify-start md:gap-2 md:bg-light-200 md:p-4
+                        md:dark:bg-dark-100 dark:md:text-gray-200 lg:w-[17rem] lg:items-start"
       >
-        <h1 className="hidden select-none text-4xl font-extrabold text-primary lg:block">
+        <h1
+          style={{ textShadow: "0 1px 20px hsl(174deg 86% 44%)" }}
+          className="hidden px-4 select-none text-4xl font-extrabold text-primary lg:block"
+        >
           Hooked.
         </h1>
-        <h1 className="hidden select-none text-4xl font-extrabold text-primary md:block lg:hidden">
-          H.
+        <h1 className="hidden select-none md:block lg:hidden">
+          <img
+            style={{ boxShadow: "0 1px 20px hsl(174deg 86% 44%)" }}
+            src="/assets/favicon-32x32.png"
+            className="w-8"
+          />
         </h1>
         <NavLink
           className="md:text-md flex items-center gap-2 rounded-2xl p-4 hover:bg-gray-400/25 md:w-full md:text-xl"
@@ -41,7 +48,7 @@ export function Navbar() {
         <button
           onClick={openCreatePostModal}
           className="md:text-md bg-dark-10 flex items-center justify-center gap-2 rounded-2xl bg-dark-100
-                       p-4 text-xl font-bold text-primary hover:bg-dark-200/75 md:order-1 md:w-full md:bg-primary md:text-dark-200 md:hover:bg-primary/75"
+                       p-4 text-xl font-bold text-primary hover:bg-dark-200/75 md:order-1 md:w-full md:bg-primary md:dark:text-dark-200 md:text-light-200 md:hover:bg-primary/75"
         >
           <FaPlus title="create post" />
           <p className="hidden lg:block">New Post</p>

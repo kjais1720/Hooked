@@ -21,7 +21,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
     status.payload === _id &&
     status.value === "pending";
   return (
-    <article className="flex gap-2 rounded-2xl bg-light-100 p-4 shadow-md shadow-dark-200 dark:bg-dark-100">
+    <article className="flex gap-2 rounded-2xl bg-light-100 p-4 shadow-md dark:shadow-dark-200 dark:bg-dark-100">
       <Link to={`/profile/${username}`}>
         <ProfileImage userId={_id} size="md" bgShade="darker" />
       </Link>

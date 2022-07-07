@@ -26,7 +26,7 @@ export function CreateComment({ postId }) {
       <article
         className="hidden rounded-2xl bg-light-100 p-2
                         text-gray-600 dark:bg-dark-100
-                        dark:text-gray-200 md:block"
+                        dark:text-gray-200 md:block shadow-md"
       >
         <div class="grid grid-cols-[3rem_auto]">
           <figure>

@@ -114,7 +114,7 @@ export function Post({
             </small>
           </div>
         </div>
-        {isCurrentUserPost ? (
+        {(isCurrentUserPost && !isCommentPost) ? (
           <div onClick={stopBubbling} className="ml-auto">
             <PostOptionsPopover
               postId={isCommentPost ? postIdOfComment : _id}

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { toast } from "react-hot-toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "services";
 import { closeModal } from "slices";
@@ -19,6 +18,7 @@ const defaultFormData = {
 
 export function CreatePost({ postToEdit }) {
   const [localImageUrls, setLocalImageUrls] = useState([]);
+  const textBox = useRef(null);
   const [postUploadStarted, setPostUploadStarted] = useState(false);
   const [imagesToRemoveFromServer, setImagesToRemoveFromServer] = useState({});
   const [postFormData, setPostFormData] = useState(defaultFormData);
@@ -37,6 +37,7 @@ export function CreatePost({ postToEdit }) {
         content: postContent,
       }));
     }
+    textBox.current.focus()
     //eslint-disable-next-line
   }, []);
 
@@ -108,6 +109,7 @@ export function CreatePost({ postToEdit }) {
       </figure>
       <div className="flex flex-col gap-2">
         <textarea
+          ref={textBox}
           onChange={handleContentChange}
           rows={3}
           value={postFormData.content}
