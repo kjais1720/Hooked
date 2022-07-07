@@ -20,13 +20,13 @@ export function Navbar() {
       >
         <h1
           style={{ textShadow: "0 1px 20px hsl(174deg 86% 44%)" }}
-          className="hidden px-4 select-none text-4xl font-extrabold text-primary lg:block"
+          className="hidden px-4 select-none text-4xl font-extrabold text-primary lgblock"
         >
           Hooked.
         </h1>
-        <h1 className="hidden select-none md:block lg:hidden">
+        <h1 className="hidden select-none md:block px-4 lghidden">
           <img
-            style={{ boxShadow: "0 1px 20px hsl(174deg 86% 44%)" }}
+            style={{ filter: "drop-shadow(0 1px 20px hsl(174deg 86% 44%))" }}
             src="/assets/favicon-32x32.png"
             className="w-8"
           />

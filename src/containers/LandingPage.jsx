@@ -14,7 +14,7 @@ export function LandingPage() {
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center md:px-40">
         <img
-          style={{ boxShadow: "0 1px 20px hsl(174deg 86% 44%)" }}
+          style={{ filter: "drop-shadow(0 1px 20px hsl(174deg 86% 44%))" }}
           src="/assets/favicon-32x32.png"
           className="absolute top-8 left-8 w-8"
         />
