@@ -10,3 +10,5 @@ export {
   sortPosts,
   getExploreFeedPosts,
 } from "./postsSlice";
+
+export { toggleTheme } from "./themeSlice"
