@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { likePost, bookmarkPost } from "services";
+import { openModal } from "slices";
+import { likePost, bookmarkPost, deleteComment, deletePost } from "services";
 import { stopBubbling } from "utils";
 import { BiComment } from "react-icons/bi";
 import {
@@ -18,7 +19,9 @@ import {
   Spinner,
   Modal,
   CreatePost,
+  PrivateActionErrorToast,
 } from "components";
+import toast from "react-hot-toast";
 
 export function Post({
   _id,
@@ -31,17 +34,20 @@ export function Post({
   isCommentPost,
   isInSinglePostPage,
   postIdOfComment,
+  setCommentToEdit,
+  focusCommentTextBox,
 }) {
   const {
     allUsers,
     currentUser,
+    isLoggedIn,
     status: userStatus,
   } = useSelector((state) => state.user);
   const { status: postStatus } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const navigateToPostPage = () => {
-    if (!isInSinglePostPage) {
+    if (!isInSinglePostPage && !isCommentPost) {
       navigate(`/post/${_id}`);
     }
   };
@@ -64,11 +70,34 @@ export function Post({
   };
   const likeHandler = (e) => {
     e.stopPropagation();
-    dispatch(likePost({ userId: currentUser._id, postId: _id }));
+    if (!isLoggedIn) {
+      toast.error(PrivateActionErrorToast);
+    } else {
+      dispatch(likePost({ userId: currentUser._id, postId: _id }));
+    }
   };
   const addPostToBookmarks = (e) => {
     e.stopPropagation();
-    dispatch(bookmarkPost(_id));
+    if (!isLoggedIn) {
+      toast.error(PrivateActionErrorToast);
+    } else {
+      dispatch(bookmarkPost(_id));
+    }
+  };
+  const editPost = () => {
+    if (isCommentPost) {
+      setCommentToEdit({ _id, content });
+      focusCommentTextBox();
+    } else {
+      dispatch(openModal(`editPost_${_id}`));
+    }
+  };
+  const deleteCurrentPost = () => {
+    if (isCommentPost) {
+      dispatch(deleteComment({ postId: postIdOfComment, commentId: _id }));
+    } else {
+      dispatch(deletePost(_id));
+    }
   };
   const isPostLiked = likes?.includes(currentUser._id);
   const isPostBookmarked = currentUser.bookmarks?.includes(_id);
@@ -78,18 +107,19 @@ export function Post({
   const isPostLikePending =
     postStatus.value === "pending" &&
     postStatus.type === "likePost" &&
-    postStatus.payload === _id
+    postStatus.payload === _id;
   const isPostBookmarkPending =
-    userStatus.value==="pending" &&
+    userStatus.value === "pending" &&
     userStatus.type === "bookmarkPost" &&
     userStatus.payload === _id;
-
-    return isPostLoading ? (
+  return isPostLoading ? (
     <Spinner size="md" />
   ) : (
     <article
       onClick={navigateToPostPage}
-      className="text-dark-2 flex w-full cursor-pointer flex-col gap-2 rounded-2xl bg-light-100 p-4 shadow-md dark:bg-dark-100 dark:text-gray-100"
+      className="text-dark-2 flex w-full cursor-pointer flex-col gap-2 
+                 rounded-2xl bg-light-100 p-4 relative
+                 shadow-md dark:bg-dark-100 dark:text-gray-100"
     >
       <header className="flex">
         <div className="flex gap-2">
@@ -114,12 +144,14 @@ export function Post({
             </small>
           </div>
         </div>
-        {(isCurrentUserPost && !isCommentPost) ? (
-          <div onClick={stopBubbling} className="ml-auto">
+        {isCurrentUserPost ? (
+          <div onClick={stopBubbling} className="absolute top-2 right-2">
             <PostOptionsPopover
               postId={isCommentPost ? postIdOfComment : _id}
               commentId={isCommentPost && _id}
               isCommentPost={isCommentPost}
+              editPost={editPost}
+              deletePost={deleteCurrentPost}
             />
           </div>
         ) : (

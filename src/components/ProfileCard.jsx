@@ -1,14 +1,19 @@
-import { ProfileImage, Spinner } from "components";
+import { toast } from "react-hot-toast";
+import { ProfileImage, DotsLoader } from "components";
 import { followUser, unfollowUser } from "services";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "slices";
 import { Link } from "react-router-dom";
 export function ProfileCard({ firstname, lastname, username, _id }) {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.user);
+  const { status, isLoggedIn } = useSelector((state) => state.user);
   const currentUser = useSelector(getCurrentUser);
   const isUserFollowed = currentUser.following?.some((id) => id === _id);
   const followUnfollowUser = () => {
+    if(!isLoggedIn){
+      toast.error("You need to login first!!!")
+      return;
+    }
     if (!isUserFollowed) {
       dispatch(followUser(_id));
       return;
@@ -35,7 +40,8 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
       </Link>
       {isLoading ? (
         <button className="ml-auto text-primary">
-          <Spinner size="md" />
+          {/* <Spinner size="md" /> */}
+          <DotsLoader/>
         </button>
       ) : (
         <button

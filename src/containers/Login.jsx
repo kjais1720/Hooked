@@ -22,7 +22,7 @@ export function Login() {
       } else if (error.status === "404") {
         formik.setFieldError("username", errorMessages["404"]);
       }
-    } else if (status.value === "fulfilled") {
+    } else if (status.value === "fulfilled" && status.type==="authenticateUser") {
       const redirectPath = location.state?.from?.pathname || "/home";
       navigate(redirectPath, { replace: true });
       toast.success(`Welcome back ${currentUser.firstname}!!`);
@@ -42,5 +42,9 @@ export function Login() {
       dispatch(authenticateUser({ formData: values, endpoint: "/auth/login" }));
     },
   });
-  return <LoginScreen formik={formik} />;
+  const guestLogin = () => {
+    dispatch(authenticateUser({formData: {username:"kjais1720", password:"hooked"}, endpoint:"/auth/login" }))
+  }
+  const isAuthenticationPending = status.value==="pending" && status.type==="authenticateUser"
+  return <LoginScreen {...{formik,guestLogin, isAuthenticationPending}} />;
 }
