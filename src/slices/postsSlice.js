@@ -7,6 +7,7 @@ import {
   postComment,
   deletePost,
   deleteComment,
+  editComment,
 } from "services";
 import { sortPostsByDate, sortPostsByLikes } from "utils";
 import { POST_LIKED, POST_UNLIKED } from "constants";
@@ -158,6 +159,23 @@ const postsSlice = createSlice({
         state.status.value = "error";
         state.error = action.error.message;
       })
+      //Edit a comment
+      .addCase(editComment.pending, (state, { meta: { arg: postId } }) => {
+        state.status.type = "editComment";
+        state.status.value = "pending";
+        state.status.payload = postId;
+      })
+      .addCase(editComment.fulfilled, (state, action) => {
+        const {postId, updatedCommentsList} = action.payload;
+        state.status.value = "fulfilled";
+        const postToUpdate = state.allPosts.find(({_id})=> _id === postId);
+        postToUpdate.comments=updatedCommentsList
+      })
+      .addCase(editComment.rejected, (state, action) => {
+        state.status.value = "error";
+        state.error = action.error.message;
+      })
+      
   },
 });
 

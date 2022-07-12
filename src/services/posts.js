@@ -1,13 +1,13 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getAllPosts = createAsyncThunk("posts/getPosts", async () => {
+export const getAllPosts = createAsyncThunk("posts/getPosts", async (s,st) => {
   const { data } = await axios.get("/post");
   return data;
 });
 
 export const createPost = createAsyncThunk(
-  "posts/createPosts",
+  "posts/createPost",
   async (post) => {
     const { data } = await axios.post("/post", post);
     return data;
@@ -40,6 +40,11 @@ export const postComment = createAsyncThunk(
   }
 );
 
+export const editComment = createAsyncThunk('posts/editComment', async ({commentId, postId, content}) => {
+  const { data :updatedCommentsList } = await axios.put(`/post/${postId}/comment/${commentId}`, {content})
+  return {postId, commentId, updatedCommentsList}
+})
+
 export const deleteComment = createAsyncThunk(
   "posts/deleteComment",
   async ({ postId, commentId }) => {
@@ -49,7 +54,7 @@ export const deleteComment = createAsyncThunk(
 );
 
 export const deletePost = createAsyncThunk(
-  "post/deletePost",
+  "posts/deletePost",
   async (postId) => {
     await axios.delete(`/post/${postId}`);
     return postId;
