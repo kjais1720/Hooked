@@ -47,7 +47,7 @@ export const userSlice = createSlice({
     builder
       //Login/Signup
       .addCase(authenticateUser.pending, (state) => {
-        state.status.type = "authentication";
+        state.status.type = "authenticateUser";
         state.status.value = "pending";
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {

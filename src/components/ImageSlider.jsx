@@ -57,7 +57,7 @@ export function ImageSlider({ images, showOriginalImageSize }) {
             onClick={moveLeft}
             className={`relative ${
               activeImg === 1 && "hidden"
-            } rounded-full text-xl text-gray-200 shadow-lg`}
+            } rounded-full text-xl text-gray-600 dark:text-gray-200 shadow-xl`}
           >
             <FaArrowAltCircleLeft />
           </button>
@@ -66,7 +66,7 @@ export function ImageSlider({ images, showOriginalImageSize }) {
             onClick={moveRight}
             className={`${
               activeImg === images.length && "hidden"
-            } ml-auto rounded-full text-xl text-gray-200 shadow-xl`}
+            } ml-auto rounded-full text-xl text-gray-600 dark:text-gray-200 shadow-xl`}
           >
             <FaArrowAltCircleRight />
           </button>

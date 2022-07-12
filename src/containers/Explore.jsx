@@ -33,18 +33,18 @@ export function Explore() {
           <SkeletonLoader />
         </div>
       ) : exploreFeedPosts.length <= 0 ? (
-        <div class="mt-16">
+        <div className="mt-16">
           <NoPostsFound />
         </div>
       ) : (
-        <div class="">
-          <div class="md:hidden">
+        <div className="">
+          <div className="md:hidden">
             <h3 className="p-4 text-lg font-medium">Find Friends</h3>
             <SearchAndSuggestion />
           </div>
           <div className="mt-2 flex flex-col gap-2">
             <div className="flex items-center justify-between p-4">
-              <h3 className="text-lg font-medium">Posts</h3>
+              <h3 className="text-lg font-medium">All Posts</h3>
               <div>
                 <span className="mr-2">Sort by</span>
                 <button

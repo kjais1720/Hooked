@@ -7,7 +7,7 @@ export function Modal({ children, childName }) {
   const dispatch = useDispatch();
   useEffect(()=>()=>{ // in case user navigates to another page without closing the modal (like clicking on user link to go to user profile)
     dispatch(closeModal())
-  },[])
+  },[dispatch])
   const modal = (
     <div
       onClick={() => dispatch(closeModal())}

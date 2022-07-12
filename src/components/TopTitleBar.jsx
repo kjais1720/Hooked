@@ -12,6 +12,7 @@ export function TopTitleBar({title}){
           style={{ boxShadow: "0 1px 20px hsl(174deg 86% 44%)" }}
           src="/assets/favicon-32x32.png"
           className="w-8 md:hidden "
+          alt="Hooked logo"
         />
       </a>
     <h2 className="text-xl font-medium text-gray-600 dark:text-gray-200">

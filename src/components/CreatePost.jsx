@@ -66,7 +66,7 @@ export function CreatePost({ postToEdit }) {
     const data = new FormData();
     const content = postFormData.content;
     const imageAlts = postFormData.imageAlts;
-    if (content !== "" || postFormData.images.length > 0) {
+    if (content.trim() !== "" || postFormData.images.length > 0) {
       data.append("content", content);
       postFormData.images.forEach((image, idx) => {
         data.append(`image-${idx}`, image, `postImage-${idx}`);
@@ -102,7 +102,7 @@ export function CreatePost({ postToEdit }) {
     <motion.article
       animate={{ scale: [0.5, 1.1, 1] }}
       transition={{ duration: 0.5, linear: true }}
-      className="relative grid w-full min-w-[95vw] max-w-[99vw] grid-cols-[3rem_auto] gap-2 overflow-x-hidden rounded-2xl bg-light-100 p-4 dark:bg-dark-100 md:min-w-[35rem]"
+      className="relative grid w-full min-w-[95vw] max-w-[99vw] grid-cols-[3rem_auto] gap-2 overflow-visible oerflow-x-hidden rounded-2xl bg-light-100 p-4 dark:bg-dark-100 md:min-w-[35rem]"
     >
       <figure>
         <ProfileImage size="md" bgShade="darker" isCurrentUserProfile />
