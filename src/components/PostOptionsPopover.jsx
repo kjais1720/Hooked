@@ -1,39 +1,43 @@
 import { FaEllipsisV, FaEdit, FaTrash, FaTimes } from "react-icons/fa";
 import { useReducer } from "react";
-import { useDispatch } from "react-redux";
-import { openModal } from "slices";
-import { deletePost, deleteComment } from "services";
-export function PostOptionsPopover({ postId, isCommentPost, commentId }) {
+import { motion } from "framer-motion";
+export function PostOptionsPopover({ editPost, deletePost }) {
   const [showPopover, togglePopover] = useReducer((state) => !state, false);
-  const dispatch = useDispatch();
-  const handleDelete = () => {
-    if (isCommentPost) {
-      dispatch(deleteComment({ postId, commentId }));
-      return;
-    }
-    dispatch(deletePost(postId));
-  };
-  const openPostEditModal = () => dispatch(openModal(`editPost_${postId}`));
   return (
     <div className="relative z-10">
-      <ul
-        className={`${
-          showPopover || "hidden"
-        } absolute top-[100%] flex -translate-x-1/2 flex-col 
-                    gap-2 rounded-2xl
-                    bg-light-200 p-2 text-xl dark:bg-dark-200
+      {showPopover ? (
+        <div
+          className="fixed inset-0 bg-transparent"
+          onClick={togglePopover}
+        ></div>
+      ) : (
+        ""
+      )}
+      <motion.ul
+        className={`relative flex gap-2 rounded-2xl
+                    bg-light-200 text-lg dark:bg-dark-200
                     `}
       >
-        <button onClick={openPostEditModal} className="p-2" title="Edit post">
-          <FaEdit />
+        {showPopover ? (
+          <motion.div
+            initial={{ maxWidth: 0, }}
+            animate={{ maxWidth: 100 }}
+            className="flex gap-2 overflow-hidden"
+          >
+            <button onClick={editPost} className={`p-2`} title="Edit post">
+              <FaEdit />
+            </button>
+            <button onClick={deletePost} className={`p-2`} title="Delete post">
+              <FaTrash />
+            </button>
+          </motion.div>
+        ) : (
+          ""
+        )}
+        <button title="Options" onClick={togglePopover} className="p-2">
+          {showPopover ? <FaTimes /> : <FaEllipsisV />}
         </button>
-        <button onClick={handleDelete} className="p-2" title="Delete post">
-          <FaTrash />
-        </button>
-      </ul>
-      <button title="Options" onClick={togglePopover} className="p-2">
-        {showPopover ? <FaTimes /> : <FaEllipsisV />}
-      </button>
+      </motion.ul>
     </div>
   );
 }

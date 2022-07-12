@@ -32,7 +32,7 @@ export function EditProfileModal({ user, closeModal }) {
     }));
     setFormData((prev) => ({
       ...prev,
-      [name]: previewImgUrl,
+      [name]: {src:previewImgUrl},
     }));
   };
 
@@ -55,16 +55,18 @@ export function EditProfileModal({ user, closeModal }) {
     closeModal();
   };
   return (
-    <div
-      onClick={closeModal}
-      className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
-    >
-      <motion.form
-        transition={{ ease: "easeInOut", duration: 1 }}
-        onSubmit={submitHandler}
-        onClick={(e) => e.stopPropagation()}
-        className="relative flex min-h-screen w-screen max-w-lg
-                            flex-col gap-4 overflow-auto bg-light-200 p-4 
+      <div
+        onClick={closeModal}
+        className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
+      >
+        <motion.form
+          initial={{x:"100vw"}}
+          animate={{x:0}}
+          transition={{type:"tween", duration:0.5}}
+          onSubmit={submitHandler}
+          onClick={(e) => e.stopPropagation()}
+          className="relative flex min-h-screen w-screen max-w-lg
+                              flex-col gap-4 overflow-auto bg-light-200 p-4
                             dark:bg-dark-100 md:p-8
             "
       >

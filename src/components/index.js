@@ -1,15 +1,16 @@
 export { Login } from "./Login";
 export { SignUp } from "./SignUp";
-export { Toast } from "./Toast";
+export { Toast, PrivateActionErrorToast } from "./Toast";
 export { Profile } from "./Profile";
 export { ProfileCtaButton } from "./ProfileCtaButton";
 export { EditProfileModal } from "./EditProfileModal";
 export { MutualFollowersBar } from "./MutualFollowers";
 export { ProfileImage } from "./ProfileImage";
 export { SkeletonLoader } from "./SkeletonLoader";
+export { Spinner } from "./Spinner";
+export { DotsLoader } from "./DotsLoader";
 export { Navbar } from "./Navbar";
 export { SearchAndSuggestion } from "./SearchAndSuggestion";
-export { Spinner } from "./Spinner";
 export { ProfileCard } from "./ProfileCard";
 export { Modal } from "./Modal";
 export { UsersList } from "./UsersList";
@@ -24,4 +25,4 @@ export { NoPostsFound } from "./NoPostsFound";
 export { CreateComment } from "./CreateComment";
 export { ProfilePosts } from "./ProfilePosts";
 export { NotificationCard } from "./NotificationCard";
-export { TopTitleBar } from "./TopTitleBar"
+export { TopTitleBar } from "./TopTitleBar";
