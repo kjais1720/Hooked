@@ -9,6 +9,7 @@ import {
   NewPostAttachmentButtons,
   Spinner,
 } from "components";
+import { areObjectsEqual } from "utils";
 
 const defaultFormData = {
   content: "",
@@ -29,7 +30,7 @@ export function CreatePost({ postToEdit }) {
   const isPostBeingEdited = postToEdit === undefined ? false : true;
   useEffect(() => {
     if (postImages) {
-      setLocalImageUrls(postImages.map(({ src }) => src));
+      setLocalImageUrls([...postImages]);
     }
     if (postContent) {
       setPostFormData((prev) => ({
@@ -62,11 +63,12 @@ export function CreatePost({ postToEdit }) {
       });
     }
   };
+  const isValidPost = postFormData.content.trim() !== "" || postFormData.images.length > 0 || localImageUrls.length>0
   const handleSubmit = () => {
     const data = new FormData();
     const content = postFormData.content;
     const imageAlts = postFormData.imageAlts;
-    if (content.trim() !== "" || postFormData.images.length > 0) {
+    if (content.trim() !== "" || postFormData.images.length > 0 || localImageUrls.length>0) {
       data.append("content", content);
       postFormData.images.forEach((image, idx) => {
         data.append(`image-${idx}`, image, `postImage-${idx}`);
@@ -75,7 +77,6 @@ export function CreatePost({ postToEdit }) {
         data.append(`${altIndex}`, imageAlts[altIndex]);
       }
       if (Object.keys(imagesToRemoveFromServer).length > 0) {
-        console.log({ imagesToRemoveFromServer });
         data.append("imagesToRemove", JSON.stringify(imagesToRemoveFromServer));
       }
       if (isPostBeingEdited) {
@@ -83,8 +84,8 @@ export function CreatePost({ postToEdit }) {
       } else {
         dispatch(createPost(data));
       }
+      setPostUploadStarted(true);
     }
-    setPostUploadStarted(true);
   };
   if (
     (status.type === "createPost" || status.type === "updatePost") &&
@@ -97,7 +98,7 @@ export function CreatePost({ postToEdit }) {
     (status.type === "createPost" || status.type === "updatePost") &&
     status.value === "pending" &&
     postUploadStarted;
-
+  const wasPostEdited = isPostBeingEdited && (postFormData.content !== postToEdit?.content || !areObjectsEqual(postToEdit?.images, localImageUrls))
   return (
     <motion.article
       animate={{ scale: [0.5, 1.1, 1] }}
@@ -117,10 +118,10 @@ export function CreatePost({ postToEdit }) {
           placeholder="What's on your mind"
         ></textarea>
         <div className="flex w-full max-w-[70vw] gap-2 overflow-x-auto overflow-y-hidden pb-2">
-          {localImageUrls.map((url, index) => (
+          {localImageUrls.map(({src}, index) => (
             <PostImagePreview
               key={index}
-              url={url}
+              src={src}
               index={index}
               setFormData={setPostFormData}
               removeImage={removeLocalImage}
@@ -140,7 +141,10 @@ export function CreatePost({ postToEdit }) {
           ) : (
             <button
               onClick={handleSubmit}
-              className="rounded-2xl bg-dark-200 py-2 px-4 text-primary dark:bg-primary dark:text-dark-200"
+              className={`rounded-2xl  py-2 px-4 text-primary dark:text-dark-200
+                ${!isValidPost || (isPostBeingEdited && !wasPostEdited) ? "cursor-not-allowed bg-gray-400 text-gray-500 dark:bg-gray-700 dark:text-gray-800" : "bg-dark-200 dark:bg-primary text-primary dark:text-dark-200"}
+              `}
+              disabled={!isValidPost || isPostBeingEdited && !wasPostEdited}
             >
               Post
             </button>

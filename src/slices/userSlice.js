@@ -155,11 +155,9 @@ export const userSlice = createSlice({
         const { postId, data } = action.payload;
         switch (data) {
           case BOOKMARK_ADDED:
-            console.log("here")
             state.currentUser.bookmarks.push(postId);
             break;
           case BOOKMARK_REMOVED:
-            console.log("here now")
             const indexOfPostToRemove = state.currentUser.bookmarks.findIndex((id)=> id === postId);
             state.currentUser.bookmarks.splice(indexOfPostToRemove,1)
             break;

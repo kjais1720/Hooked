@@ -1,13 +1,13 @@
 import { FaTimes } from "react-icons/fa"
 import { useState, useReducer } from "react";
-export function PostImagePreview({ url, index, removeImage, setFormData }) {
+export function PostImagePreview({ src, index, removeImage, setFormData }) {
   const [showAltTextPopover, toggleAltTextPopover] = useReducer(
     (state) => !state,
     false
   );
   const [altText, setAltText] = useState("");
   const changeHandler = (e) => setAltText(e.target.value);
-  const saveText = () => {
+  const saveAltText = () => {
     setFormData((prev) => ({
       ...prev,
       imageAlts: {
@@ -24,12 +24,12 @@ export function PostImagePreview({ url, index, removeImage, setFormData }) {
     >
       <button
         className="absolute right-2 top-2 rounded-full bg-gray-800/50 p-2 text-gray-200"
-        onClick={() => removeImage(index, url)}
+        onClick={() => removeImage(index, src)}
       >
         <FaTimes />
       </button>
       <img
-        src={url}
+        src={src}
         className="h-32 w-32 rounded-2xl object-contain"
         alt="post"
       />
@@ -56,7 +56,7 @@ export function PostImagePreview({ url, index, removeImage, setFormData }) {
           />
           <button
             className="mt-1 rounded-2xl bg-primary p-1 text-xs dark:text-dark-200"
-            onClick={saveText}
+            onClick={saveAltText}
           >
             save
           </button>

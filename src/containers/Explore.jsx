@@ -48,11 +48,11 @@ export function Explore() {
               <div>
                 <span className="mr-2">Sort by</span>
                 <button
-                  className={`rounded-l-2xl py-1 px-2 text-sm ${
-                    sortBy === "TRENDING"
-                      ? "bg-primary text-dark-200"
-                      : "bg-dark-100 text-gray-200"
-                  }`}
+            className={`rounded-l-2xl py-1 px-2 text-sm ${
+                        sortBy === "TRENDING"
+                          ? "bg-primary text-gray-600"
+                          : "bg-light-100 text-gray-600 dark:bg-dark-100 dark:text-gray-200"
+            }`}
                   value="TRENDING"
                   onClick={sortPosts}
                 >

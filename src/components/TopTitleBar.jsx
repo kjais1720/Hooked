@@ -22,7 +22,7 @@ export function TopTitleBar({title}){
         onClick={changeTheme}
         style={{ filter: "drop-shadow(0 1px 20px hsl(174deg 86% 44%))" }}
        className="text-xl ml-auto">
-        {darkModePreferred ? <FaMoon/> : <FaSun />}
+        {darkModePreferred ? <FaSun /> : <FaMoon/>}
       </button>
   </div>
 
