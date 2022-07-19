@@ -29,7 +29,7 @@ export function Profile({
   const openFollowersList = () => dispatch(openModal(`${username}_followersList`))
   const openFollowingList = () => dispatch(openModal(`${username}_followingList`))
   return (
-    <div className="m-2 mx-auto rounded-2xl bg-light-200 dark:bg-dark-200">
+    <div className="m-2 mx-auto rounded-2xl bg-light-200 dark:bg-dark-200 relative z-0">
       <div className="m-2 flex items-center gap-4 rounded-2xl bg-light-100 p-2 dark:bg-dark-100">
         <button
           onClick={() => navigateToPreviousPage(navigate)}
