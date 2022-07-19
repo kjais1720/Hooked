@@ -95,8 +95,14 @@ export function Login({ formik, guestLogin, isAuthenticationPending }) {
                       Log In
                     </button>
                   )}
-                  <button className="m-auto" onClick={guestLogin}>
-                    Login as a guest
+                  <button
+                    className="group mt-2 relative w-full text-sm font-medium text-primary focus:outline-none focus:ring "
+                    onClick={guestLogin}
+                  >
+                    <span className="absolute inset-0 translate-x-0.5 translate-y-0.5 rounded-2xl bg-primary transition-transform group-hover:translate-y-0 group-hover:translate-x-0"></span>
+                    <span className="relative block rounded-2xl border border-current bg-dark-200 px-8 py-3">
+                      Login as a guest
+                    </span>
                   </button>
                 </div>
               </form>

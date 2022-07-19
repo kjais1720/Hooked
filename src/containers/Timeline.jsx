@@ -14,10 +14,10 @@ export function Timeline() {
   const timelinePosts = useSelector(getTimelinePosts);
   const isPageLoading = type === "getAllPosts" && value === "pending";
   return (
-    <section className="rounded-2xl bg-light-200 p-2 dark:bg-dark-200 relative z-0">
-      <TopTitleBar title="Home"/>
+    <section className="rounded-2xl bg-light-200 p-2 dark:bg-dark-200">
+      <TopTitleBar title="Home" />
       <div className="flex items-center justify-between p-4">
-        <p className="text-lg font-medium">Timeline Posts</p>
+        <p className="text-lg font-medium">Posts</p>
         <div>
           <span className="mr-2">Sort by</span>
           <button

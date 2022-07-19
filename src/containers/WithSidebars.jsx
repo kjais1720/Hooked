@@ -13,7 +13,7 @@ export function WithSidebars() {
   return (
     <div className="mb-20 md:mb-0 md:grid md:grid-cols-[6rem_auto_18rem] lg:grid-cols-[18rem_auto_22rem]">
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen relative z-0">
         <Outlet />
       </main>
       <div className="hidden md:block">
