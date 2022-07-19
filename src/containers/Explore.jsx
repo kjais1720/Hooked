@@ -37,7 +37,7 @@ export function Explore() {
           <NoPostsFound />
         </div>
       ) : (
-        <div className="">1
+        <div className="">
           <div className="md:hidden">
             <h3 className="p-4 text-lg font-medium">Find Friends</h3>
             <SearchAndSuggestion />
