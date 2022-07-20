@@ -113,17 +113,6 @@ export const CreateComment = forwardRef(({ postId, commentToEdit }, ref) => {
               </>
             )}
           </form>
-
-          {/* <form onSubmit={submitHandler} className="flex flex-col gap-1">
-            <textarea
-              ref={ref}
-              name="content"
-              placeholder="Write your comment..."
-              value={commentFormData.content}
-              onChange={textChangeHandler}
-              className="border-0 p-2 outline-0 dark:bg-dark-100 dark:text-gray-200"
-            ></textarea>
-          </form> */}
         </div>
       </article>
     </div>
