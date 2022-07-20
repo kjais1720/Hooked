@@ -45,3 +45,16 @@ Users can:
 - Bookmark posts.
 - Add alt text to post images.
 - Switch between persistant light themes
+
+## Technologies used
+- React
+- Redux
+- TailwindCSS
+
+## Backend
+- URL - https://hooked-social-api.herokuapp.com
+- Technologies Used
+  - ExpressJS
+  - MongoDB Atlas
+  - Mongoose
+  - JWT
