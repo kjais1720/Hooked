@@ -5,6 +5,7 @@ export {
   sortPostsByDate,
   sortPostsByLikes,
   stopBubbling,
+  areObjectsEqual
 } from "./helperFunctions";
 
 export { useDocumentTitle } from "./useDocumentTitle"

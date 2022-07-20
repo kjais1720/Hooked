@@ -29,6 +29,7 @@ export function Navbar() {
             style={{ filter: "drop-shadow(0 1px 20px hsl(174deg 86% 44%))" }}
             src="/assets/favicon-32x32.png"
             className="w-8"
+            alt="Hooked logo"
           />
         </h1>
         <NavLink

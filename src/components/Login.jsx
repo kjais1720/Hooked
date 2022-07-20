@@ -1,7 +1,8 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
-export function Login({ formik }) {
+import { DotsLoader } from "components";
+export function Login({ formik, guestLogin, isAuthenticationPending }) {
   const [showPassword, toggleShowPassword] = useReducer(
     (state) => !state,
     false
@@ -76,20 +77,40 @@ export function Login({ formik }) {
                   </span>
                 </div>
                 <div className="mt-10">
-                  <button
-                    className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
+                  {isAuthenticationPending ? (
+                    <button
+                      type="button"
+                      className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
                           tracking-wide text-primary shadow-lg focus:outline-none
                           dark:bg-dark-100"
+                    >
+                      <DotsLoader size="md" />
+                    </button>
+                  ) : (
+                    <button
+                      className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
+                          tracking-wide text-primary shadow-lg focus:outline-none
+                          dark:bg-dark-100"
+                    >
+                      Log In
+                    </button>
+                  )}
+                  <button
+                    className="group mt-2 relative w-full text-sm font-medium text-primary focus:outline-none focus:ring "
+                    onClick={guestLogin}
                   >
-                    Log In
+                    <span className="absolute inset-0 translate-x-0.5 translate-y-0.5 rounded-2xl bg-primary transition-transform group-hover:translate-y-0 group-hover:translate-x-0"></span>
+                    <span className="relative block rounded-2xl border border-current bg-dark-200 px-8 py-3">
+                      Login as a guest
+                    </span>
                   </button>
                 </div>
               </form>
-              <div className="mt-12 text-center font-display text-sm font-semibold text-gray-700">
+              <div className="mt-12 text-center font-display text-sm font-semibold text-gray-600 dark:text-gray-200">
                 Don't have an account ?{" "}
                 <Link
                   to="/auth/signup"
-                  className="cursor-pointer text-primary hover:text-indigo-800"
+                  className="cursor-pointer text-primary hover:text-primary/75"
                 >
                   Sign up
                 </Link>

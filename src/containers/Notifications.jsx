@@ -11,17 +11,18 @@ export function Notifications() {
 
   useEffect(() => {
     dispatch(getNotifications());
+    //eslint-disable-next-line
   }, []);
   return (
     <section className="rounded-2xl bg-light-200 p-2 dark:bg-dark-200">
       <TopTitleBar title="Notifications" />
       <div className="flex flex-col items-center justify-between gap-2 py-2">
-        {notifications.length > 0 ? (
+        {notifications?.length > 0 ? (
           notifications?.map((notification) => (
             <NotificationCard key={notification._id} {...notification} />
           ))
         ) : (
-          <div class="text-center">
+          <div className="text-center">
             <div className="m-auto mt-8 w-fit rotate-12 rounded bg-primary px-2 text-xl text-light-200 dark:text-dark-200">
               No new notifications
             </div>

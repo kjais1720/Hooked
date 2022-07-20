@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
-import { isFileSizeInValid } from "utils";
+import { areObjectsEqual,isFileSizeInValid } from "utils";
 import { toast } from "react-hot-toast";
 import { updateCurrentUser } from "services";
 import { useDispatch } from "react-redux";
@@ -32,39 +32,43 @@ export function EditProfileModal({ user, closeModal }) {
     }));
     setFormData((prev) => ({
       ...prev,
-      [name]: previewImgUrl,
+      [name]: {src:previewImgUrl},
     }));
   };
-
+  const noPropertyEdited = areObjectsEqual(formData,user);
   const submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();
     const { firstname, lastname, about, location, website } = formData;
-    data.append("firstname", firstname);
-    data.append("lastname", lastname);
-    data.append("about", about);
-    data.append("location", location);
-    data.append("website", website);
-    if (images.profilePicture) {
-      data.append("profilePicture", images.profilePicture);
+    if(!noPropertyEdited){
+      data.append("firstname", firstname);
+      data.append("lastname", lastname);
+      data.append("about", about);
+      data.append("location", location);
+      data.append("website", website);
+      if (images.profilePicture) {
+        data.append("profilePicture", images.profilePicture);
+      }
+      if (images.coverPicture) {
+        data.append("coverPicture", images.coverPicture);
+      }
+      dispatch(updateCurrentUser(data));
     }
-    if (images.coverPicture) {
-      data.append("coverPicture", images.coverPicture);
-    }
-    dispatch(updateCurrentUser(data));
     closeModal();
   };
   return (
-    <div
-      onClick={closeModal}
-      className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
-    >
-      <motion.form
-        transition={{ ease: "easeInOut", duration: 1 }}
-        onSubmit={submitHandler}
-        onClick={(e) => e.stopPropagation()}
-        className="relative flex min-h-screen w-screen max-w-lg
-                            flex-col gap-4 overflow-auto bg-light-200 p-4 
+      <div
+        onClick={closeModal}
+        className="fixed top-0 left-0 bottom-0 z-20 flex w-screen justify-end overflow-y-auto overflow-x-hidden bg-gray-800/50"
+      >
+        <motion.form
+          initial={{x:"100vw"}}
+          animate={{x:0}}
+          transition={{type:"tween", duration:0.5}}
+          onSubmit={submitHandler}
+          onClick={(e) => e.stopPropagation()}
+          className="relative flex min-h-screen w-screen max-w-lg
+                              flex-col gap-4 overflow-auto bg-light-200 p-4
                             dark:bg-dark-100 md:p-8
             "
       >
@@ -72,7 +76,7 @@ export function EditProfileModal({ user, closeModal }) {
           <button
             type="button"
             onClick={closeModal}
-            className="text-md flex h-[2em] w-[2em] items-center justify-center rounded-full bg-light-200 p-2 align-middle font-extrabold dark:bg-dark-200 md:relative"
+            className="text-md flex h-[2em] w-[2em] items-center justify-center rounded-full bg-light-100 p-2 align-middle font-extrabold dark:bg-dark-200 md:relative"
           >
             ✕
           </button>
@@ -80,11 +84,12 @@ export function EditProfileModal({ user, closeModal }) {
             Edit Profile
           </h2>
           <button
-            className="w-50 ml-auto rounded-2xl bg-primary px-4 py-2 text-dark-200"
-            type="submit"
-          >
-            Save
-          </button>
+              className={`w-50 ml-auto rounded-2xl px-4 py-2 ${noPropertyEdited?"cursor-not-allowed bg-gray-400 text-gray-500 dark:bg-gray-700 dark:text-gray-800":"bg-primary text-dark-200"}`}
+              type="submit"
+              disabled = {noPropertyEdited}
+            >
+              Save
+            </button>
         </div>
         <div className="relative">
           <img

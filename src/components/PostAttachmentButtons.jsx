@@ -39,7 +39,7 @@ export function NewPostAttachmentButtons({
     }
     if (newImages.length > 0) {
       const newLocalImageUrls = newImages.map((image) =>
-        URL.createObjectURL(image)
+        ({src:URL.createObjectURL(image)})
       );
       setLocalImageUrls((prev) => [...prev, ...newLocalImageUrls]);
       setPostFormData((prev) => ({

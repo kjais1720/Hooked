@@ -1,4 +1,4 @@
-import { Spinner } from "components";
+import { DotsLoader } from "components";
 import { useSelector } from "react-redux";
 
 export function ProfileCtaButton({
@@ -19,7 +19,7 @@ export function ProfileCtaButton({
     </button>
   ) : isLoading ? (
     <button className="flex-grow justify-center rounded-2xl bg-dark-200 p-4 text-center text-xs font-medium text-primary  dark:bg-dark-100 md:flex-grow-0">
-      <Spinner size="sm" />
+      <DotsLoader />
     </button>
   ) : (
     <button

@@ -18,4 +18,5 @@ export {
   deletePost,
   postComment,
   deleteComment,
+  editComment,
 } from "./posts";
