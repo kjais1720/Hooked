@@ -91,6 +91,7 @@ export function Login({ formik, guestLogin, isAuthenticationPending }) {
                       className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
                           tracking-wide text-primary shadow-lg focus:outline-none
                           dark:bg-dark-100"
+                      type="submit"
                     >
                       Log In
                     </button>
@@ -98,6 +99,7 @@ export function Login({ formik, guestLogin, isAuthenticationPending }) {
                   <button
                     className="group mt-2 relative w-full text-sm font-medium text-primary focus:outline-none focus:ring "
                     onClick={guestLogin}
+                    type="button"
                   >
                     <span className="absolute inset-0 translate-x-0.5 translate-y-0.5 rounded-2xl bg-primary transition-transform group-hover:translate-y-0 group-hover:translate-x-0"></span>
                     <span className="relative block rounded-2xl border border-current bg-dark-200 px-8 py-3">
@@ -111,6 +113,7 @@ export function Login({ formik, guestLogin, isAuthenticationPending }) {
                 <Link
                   to="/auth/signup"
                   className="cursor-pointer text-primary hover:text-primary/75"
+                  type="button"
                 >
                   Sign up
                 </Link>

@@ -51,5 +51,6 @@ export function SignUp() {
       );
     },
   });
-  return <SignUpScreen formik={formik} />;
+  const isAuthenticationPending = status.value==="pending" && status.type==="authenticateUser"
+  return <SignUpScreen formik={formik} isAuthenticationPending={isAuthenticationPending} />;
 }
