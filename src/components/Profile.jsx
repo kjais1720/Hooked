@@ -54,7 +54,7 @@ export function Profile({
           <figure className="h-full w-full px-2">
             <img
               className="h-[25vh] rounded-2xl object-cover md:h-[40vh]"
-              src={coverPicture || "/assets/cover.jpg"}
+              src={coverPicture?.src || "/assets/cover.jpg"}
               alt="profile cover"
             />
           </figure>
