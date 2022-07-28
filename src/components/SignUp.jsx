@@ -1,7 +1,8 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
-export function SignUp({ formik }) {
+import { DotsLoader } from "components";
+export function SignUp({ formik, isAuthenticationPending }) {
   const [showPassword, toggleShowPassword] = useReducer(
     (state) => !state,
     false
@@ -147,20 +148,33 @@ export function SignUp({ formik }) {
                   </span>
                 </div>
                 <div className="mt-10">
-                  <button
-                    className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
-                          tracking-wide text-primary shadow-lg focus:outline-primary
+                {isAuthenticationPending ? (
+                    <button
+                      type="button"
+                      className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
+                          tracking-wide text-primary shadow-lg focus:outline-none
                           dark:bg-dark-100"
-                  >
-                    Sign Up
-                  </button>
+                    >
+                      <DotsLoader size="md" />
+                    </button>
+                  ) : (
+                    <button
+                      className="focus:shadow-outline w-full rounded-full bg-dark-200 p-4 font-display font-semibold
+                          tracking-wide text-primary shadow-lg focus:outline-none
+                          dark:bg-dark-100"
+                      type="submit"
+                    >
+                      Sign Up
+                    </button>
+                  )}
                 </div>
               </form>
               <div className="mt-12 text-center font-display text-sm font-semibold text-gray-700">
                 Already have an account ?{" "}
                 <Link
                   to="/auth/login"
-                  className="cursor-pointer text-indigo-600 hover:text-indigo-800"
+                  className="cursor-pointer text-primary hover:text-primary/75"
+                  type="button"
                 >
                   Sign in
                 </Link>
