@@ -1,7 +1,7 @@
 
 # Hooked
 
-Hooked is a free open source Social media website. Connect with your friends and share memories together.
+ Hooked is a social media app for fast, fun and easy interactions. Hooked has a clean design, with a beautiful interface that lets users express themselves by sharing what’s on their mind, or images.
 
 ![Untitled design (3)](https://user-images.githubusercontent.com/66024105/179878465-03086fc3-2f3f-4e8d-bd05-ae76312c8b4b.png)
 
