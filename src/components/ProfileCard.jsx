@@ -9,9 +9,9 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
   const { status, isLoggedIn } = useSelector((state) => state.user);
   const currentUser = useSelector(getCurrentUser);
   const isUserFollowed = currentUser.following?.some((id) => id === _id);
-  const followUnfollowUser = () => {
-    if(!isLoggedIn){
-      toast.error("You need to login first!!!")
+  const followOrUnfollowUser = () => {
+    if (!isLoggedIn) {
+      toast.error("You need to login first!!!");
       return;
     }
     if (!isUserFollowed) {
@@ -26,11 +26,11 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
     status.payload === _id &&
     status.value === "pending";
   return (
-    <article className="flex gap-2 rounded-2xl bg-light-100 p-4 shadow-md dark:shadow-dark-200 dark:bg-dark-100">
-      <Link to={`/profile/${username}`}>
+    <article className="flex gap-2 rounded-2xl bg-light-100 p-4 shadow-md dark:bg-dark-100 dark:shadow-dark-200">
+      <Link to={currentUser?._id === _id ? "/profile" : `/profile/${username}`}>
         <ProfileImage userId={_id} size="md" bgShade="darker" />
       </Link>
-      <Link to={`/profile/${username}`}>
+      <Link to={currentUser?._id === _id ? "/profile" : `/profile/${username}`}>
         <h3 className="text-sm font-medium text-gray-600 dark:text-light-200">
           {firstname} {lastname}
         </h3>
@@ -38,18 +38,21 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
           @{username}
         </h4>
       </Link>
-      {isLoading ? (
-        <button className="ml-auto text-primary">
-          {/* <Spinner size="md" /> */}
-          <DotsLoader/>
-        </button>
+      {currentUser._id !== _id ? (
+        isLoading ? (
+          <button className="ml-auto text-primary">
+            <DotsLoader />
+          </button>
+        ) : (
+          <button
+            onClick={followOrUnfollowUser}
+            className="ml-auto text-sm text-primary"
+          >
+            {isUserFollowed ? "Unfollow" : "Follow"}
+          </button>
+        )
       ) : (
-        <button
-          onClick={followUnfollowUser}
-          className="ml-auto text-sm text-primary"
-        >
-          {isUserFollowed ? "Unfollow" : "Follow"}
-        </button>
+        ""
       )}
     </article>
   );

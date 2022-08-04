@@ -43,7 +43,9 @@ export function Login() {
     },
   });
   const guestLogin = () => {
-    dispatch(authenticateUser({formData: {username:"kjais1720", password:"hooked"}, endpoint:"/auth/login" }))
+    formik.setFieldValue("username","johnman")
+    formik.setFieldValue("password","hooked")
+    dispatch(authenticateUser({formData: {username:"johnman", password:"hooked"}, endpoint:"/auth/login" }))
   }
   const isAuthenticationPending = status.value==="pending" && status.type==="authenticateUser"
   return <LoginScreen {...{formik,guestLogin, isAuthenticationPending}} />;

@@ -7,15 +7,16 @@ export function CommonUserProfile() {
   const dispatch = useDispatch();
   const { username } = useParams();
   const { status, allUsers, currentUser } = useSelector((state) => state.user);
-  const isPageLoading = status.value === "pending" && status.type === "getAllUsers";
-  useDocumentTitle(`${username} | Hooked`)
+  const isPageLoading =
+    status.value === "pending" && status.type === "getAllUsers";
+  useDocumentTitle(`${username} | Hooked`);
   let user;
   let isUserFollowed;
   if (!isPageLoading) {
     user = allUsers.find((user) => user.username === username) ?? {};
     isUserFollowed = currentUser.following?.some((id) => id === user._id);
   }
-  const followUnfollowUser = () => {
+  const followOrUnfollowUser = () => {
     if (!isUserFollowed) {
       dispatch(followUser(user._id));
       return;
@@ -23,15 +24,14 @@ export function CommonUserProfile() {
     dispatch(unfollowUser(user._id));
   };
 
-
   return isPageLoading ? (
-    <Spinner size="md"/>
+    <Spinner size="md" />
   ) : (
     <Profile
       {...user}
       isCurrentUserProfile={false}
       isUserFollowed={isUserFollowed}
-      followUnfollowUser={followUnfollowUser}
+      followOrUnfollowUser={followOrUnfollowUser}
     />
   );
 }
