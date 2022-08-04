@@ -106,7 +106,6 @@ export function SignUp({ formik, isAuthenticationPending }) {
                               `}
                     placeholder="johndoe@xyz.com"
                     {...formik.getFieldProps("email")}
-                    autoFocus
                   />
                   <span className="text-error">
                     {formik.touched.email && formik.errors.email}

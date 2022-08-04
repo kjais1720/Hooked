@@ -68,10 +68,12 @@ const postsSlice = createSlice({
         state.status.value = "pending";
       })
       .addCase(updatePost.fulfilled, (state, action) => {
-        const {data :updatedPost, postId} = action.payload;
+        const { data: updatedPost, postId } = action.payload;
         state.status.value = "fulfilled";
         toast.success(`Post updated!`);
-        state.allPosts = state.allPosts.map(post => post._id === postId ? updatedPost : post)
+        state.allPosts = state.allPosts.map((post) =>
+          post._id === postId ? updatedPost : post
+        );
       })
       .addCase(updatePost.rejected, (state, action) => {
         state.status.value = "error";
@@ -150,10 +152,12 @@ const postsSlice = createSlice({
         state.status.payload = postId;
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
-        const {postId, commentId} = action.payload;
+        const { postId, commentId } = action.payload;
         state.status.value = "fulfilled";
-        const postToUpdate = state.allPosts.find(({_id})=> _id === postId);
-        postToUpdate.comments=postToUpdate.comments.filter(({_id})=> _id !== commentId)
+        const postToUpdate = state.allPosts.find(({ _id }) => _id === postId);
+        postToUpdate.comments = postToUpdate.comments.filter(
+          ({ _id }) => _id !== commentId
+        );
       })
       .addCase(deleteComment.rejected, (state, action) => {
         state.status.value = "error";
@@ -166,22 +170,21 @@ const postsSlice = createSlice({
         state.status.payload = postId;
       })
       .addCase(editComment.fulfilled, (state, action) => {
-        const {postId, updatedCommentsList} = action.payload;
+        const { postId, updatedCommentsList } = action.payload;
         state.status.value = "fulfilled";
-        const postToUpdate = state.allPosts.find(({_id})=> _id === postId);
-        postToUpdate.comments=updatedCommentsList
+        const postToUpdate = state.allPosts.find(({ _id }) => _id === postId);
+        postToUpdate.comments = updatedCommentsList;
       })
       .addCase(editComment.rejected, (state, action) => {
         state.status.value = "error";
         state.error = action.error.message;
-      })
-      
+      });
   },
 });
 
 export const sortPosts = (state, posts) => {
   const { sortBy } = state.posts;
-  const postsToShow = [...posts]
+  const postsToShow = [...posts];
   switch (sortBy) {
     case "TRENDING":
       return sortPostsByLikes(postsToShow);
@@ -190,7 +193,7 @@ export const sortPosts = (state, posts) => {
     default:
       return postsToShow;
   }
-}
+};
 
 export const getTimelinePosts = (state) => {
   const { allPosts } = state.posts;
@@ -203,10 +206,10 @@ export const getTimelinePosts = (state) => {
   return sortPosts(state, postsToShow);
 };
 
-export const getExploreFeedPosts = state => {
+export const getExploreFeedPosts = (state) => {
   const { allPosts } = state.posts;
   return sortPosts(state, allPosts);
-}
+};
 
 export const getPostById = (state, postId) => {
   const post = state.posts.allPosts.find(({ _id }) => _id === postId);
@@ -214,19 +217,25 @@ export const getPostById = (state, postId) => {
 };
 
 export const getUserPosts = (state, userId) => {
-  const userPosts = state.posts.allPosts.filter((post) => post.userId === userId)
+  const userPosts = state.posts.allPosts
+    .filter((post) => post.userId === userId)
+    .reverse();
   return userPosts;
-}
+};
 
 export const getUserBookmarks = (state, bookmarkedPostIds) => {
-  const bookmarkedPosts = state.posts.allPosts.filter(({_id}) => bookmarkedPostIds.find(bookmarkedPostId => bookmarkedPostId === _id))
+  const bookmarkedPosts = bookmarkedPostIds
+    .map((id) => state.posts.allPosts.find((post) => post._id === id) ?? {})
+    .reverse();
   return bookmarkedPosts;
-}
+};
 
 export const getUserLikes = (state, userId) => {
-  const likedPosts = state.posts.allPosts.filter(({likes}) => likes.some(likedUserId => likedUserId === userId))
+  const likedPosts = state.posts.allPosts
+    .filter(({ likes }) => likes.includes(userId))
+    .reverse();
   return likedPosts;
-}
+};
 
 export const { setSortingOrder } = postsSlice.actions;
 export default postsSlice.reducer;
