@@ -9,8 +9,9 @@ import {
   bookmarkPost,
   getNotifications,
   deleteNotification,
+  likePost,
 } from "services";
-import { BOOKMARK_ADDED, BOOKMARK_REMOVED } from "constants";
+import { BOOKMARK_ADDED, BOOKMARK_REMOVED, POST_LIKED, POST_UNLIKED } from "constants";
 
 const initialState = {
   currentUser: {},
@@ -167,6 +168,22 @@ export const userSlice = createSlice({
       })
       .addCase(bookmarkPost.rejected, (state) => {
         state.status.value = "error";
+      })
+      //Like a post
+      .addCase(likePost.fulfilled, (state, action) => {
+        const { postId, data } = action.payload;
+        const {currentUser} = state
+        switch (data) {
+          case POST_LIKED:
+            currentUser.likes.push(postId);
+            break;
+          case POST_UNLIKED:
+            currentUser.likes = currentUser.likes.filter((id) => id !== postId);
+            break;
+          default:
+            break;
+        }
+        state.status.value = "fulfilled";
       })
       //Get notifications
       .addCase(getNotifications.pending, (state) => {

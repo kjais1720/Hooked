@@ -11,10 +11,10 @@ import { Post, SkeletonLoader } from "components";
 export function ProfilePosts() {
   const { pathname } = useLocation();
   const { username } = useParams();
-  const { _id, bookmarks } = useOutletContext();
+  const { _id, bookmarks, likes } = useOutletContext();
   const { status } = useSelector((state) => state.posts);
   const userPosts = useSelector((state) => getUserPosts(state, _id));
-  const userLikes = useSelector((state) => getUserLikes(state, _id));
+  const userLikes = useSelector((state) => getUserLikes(state, likes || []));
   const userBookmarks = useSelector((state) =>
     getUserBookmarks(state, bookmarks ?? [])
   );

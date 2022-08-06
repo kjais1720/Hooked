@@ -24,7 +24,7 @@ export function ProfileImage({ userId, size, bgShade, isCurrentUserProfile }) {
   }
 
   const { firstname, lastname, profilePicture } = user;
-  return profilePicture ? (
+  return profilePicture?.src ? (
     <img
       className={`rounded-full object-cover`}
       style={{ height: imageSizes[size], width: imageSizes[size] }}

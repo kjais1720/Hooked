@@ -230,9 +230,9 @@ export const getUserBookmarks = (state, bookmarkedPostIds) => {
   return bookmarkedPosts;
 };
 
-export const getUserLikes = (state, userId) => {
-  const likedPosts = state.posts.allPosts
-    .filter(({ likes }) => likes.includes(userId))
+export const getUserLikes = (state, userLikes) => {
+  const likedPosts = userLikes
+    ?.map((postId) => state.posts.allPosts.find(({ _id }) => _id === postId))
     .reverse();
   return likedPosts;
 };
