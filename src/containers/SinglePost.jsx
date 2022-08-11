@@ -15,7 +15,8 @@ export function SinglePost() {
   const post = useSelector((state) => getPostById(state, postId)) ?? {};
   const comments = post.comments?.length ? post.comments : [];
   const focusCommentTextBox = () => {
-    commentRef.current.focus()};
+    commentRef.current.focus();
+  };
   return (
     <section className="relative z-10 my-2 flex flex-col gap-4 px-2">
       <div className="flex items-center gap-4 rounded-2xl bg-light-100 p-2 dark:bg-dark-100">

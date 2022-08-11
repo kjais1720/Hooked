@@ -97,6 +97,9 @@ export function Post({
       dispatch(deleteComment({ postId: postIdOfComment, commentId: _id }));
     } else {
       dispatch(deletePost(_id));
+      if(isInSinglePostPage){
+        navigate("/home")
+      }
     }
   };
   const isPostLiked = likes?.includes(currentUser._id);
