@@ -71,7 +71,7 @@ export function ProfilePosts() {
       {arePostsLoading ? (
         <SkeletonLoader />
       ) : postsToShow.length > 0 ? (
-        postsToShow.map((post) => <Post key={post._id} {...post} />)
+        postsToShow.map((post) => post && <Post key={post._id} {...post} />)
       ) : (
         <div className="text-center">
           <div className="w-fit text-xl m-auto mt-8 rotate-12 rounded bg-primary dark:text-dark-200 text-light-200 px-2">
