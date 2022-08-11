@@ -94,7 +94,7 @@ export function EditProfileModal({ user, closeModal }) {
         <div className="relative">
           <img
             className="h-[20vh] w-full rounded-2xl object-cover md:h-[25vh]"
-            src={formData.coverPicture?.src || "/assets/cover.jpg"}
+            src={formData.coverPicture?.src || "/assets/cover.png"}
             alt="Cover"
           />
           <label
@@ -115,7 +115,7 @@ export function EditProfileModal({ user, closeModal }) {
           />
         </div>
         <div className="m-auto -mb-8 flex w-fit -translate-y-1/2">
-          {formData.profilePicture ? (
+          {formData.profilePicture?.src ? (
             <img
               className="m-auto h-32 w-32 rounded-full border-8
                                     border-light-200 object-cover dark:border-dark-100

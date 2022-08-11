@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-import { ProfileImage, DotsLoader } from "components";
+import { ProfileImage, DotsLoader, PrivateActionErrorToast } from "components";
 import { followUser, unfollowUser } from "services";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "slices";
@@ -11,7 +11,7 @@ export function ProfileCard({ firstname, lastname, username, _id }) {
   const isUserFollowed = currentUser.following?.some((id) => id === _id);
   const followOrUnfollowUser = () => {
     if (!isLoggedIn) {
-      toast.error("You need to login first!!!");
+      toast.error(PrivateActionErrorToast);
       return;
     }
     if (!isUserFollowed) {
