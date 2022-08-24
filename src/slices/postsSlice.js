@@ -225,7 +225,7 @@ export const getUserPosts = (state, userId) => {
 
 export const getUserBookmarks = (state, bookmarkedPostIds) => {
   const bookmarkedPosts = bookmarkedPostIds
-    .map((id) => state.posts.allPosts.find((post) => post._id === id) ?? {})
+    .map((id) => state.posts.allPosts.find((post) => post._id === id))
     .reverse();
   return bookmarkedPosts;
 };
