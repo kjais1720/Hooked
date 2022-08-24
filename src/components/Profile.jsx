@@ -147,7 +147,7 @@ export function Profile({
         </div>
       </header>
       <main className="mt-4">
-        <Outlet context={{ _id, bookmarks, likes }} />
+        <Outlet context={{ _id, bookmarks, likes, isCurrentUserProfile }} />
       </main>
       <Modal childName={`${username}_followersList`}>
         <UsersList listTitle="Followers" userIds={followers} />

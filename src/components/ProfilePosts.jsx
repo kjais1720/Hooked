@@ -11,14 +11,14 @@ import { Post, SkeletonLoader } from "components";
 export function ProfilePosts() {
   const { pathname } = useLocation();
   const { username } = useParams();
-  const { _id, bookmarks, likes } = useOutletContext();
+  const { _id, bookmarks, likes, isCurrentUserProfile } = useOutletContext();
   const { status } = useSelector((state) => state.posts);
   const userPosts = useSelector((state) => getUserPosts(state, _id));
-  const userLikes = useSelector((state) => getUserLikes(state, likes || []));
+  const userLikes = useSelector((state) => getUserLikes(state, likes ?? []));
   const userBookmarks = useSelector((state) =>
     getUserBookmarks(state, bookmarks ?? [])
   );
-  const postTypes = {
+  const allTypesOfPosts = {
     "": userPosts,
     likes: userLikes,
     bookmarks: userBookmarks,
@@ -27,7 +27,7 @@ export function ProfilePosts() {
     username === undefined
       ? pathname.slice(9)
       : pathname.slice(10 + username.length);
-  const postsToShow = postTypes[postTypeToShow];
+  const postsToShow = allTypesOfPosts[postTypeToShow];
   const arePostsLoading =
     (status.type === "getAllPosts" && status.value === "pending") ||
     postsToShow === undefined;
@@ -49,10 +49,14 @@ export function ProfilePosts() {
     },
   ];
   const isLinkActive = (path) => path === pathname;
+  const shouldHideBookmarks = !isCurrentUserProfile;
   return (
     <section className="flex flex-col gap-4 p-4">
       <div className="flex gap-2">
         {profileSectionButtons.map(({ type, path, key }) => {
+          if(shouldHideBookmarks && type==="Bookmarks"){
+            return ''
+          }
           return (
             <Link
               key={key}

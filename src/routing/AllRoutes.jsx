@@ -32,7 +32,6 @@ export function AllRoutes() {
         <Route path="/profile/:username" element={<CommonUserProfile />}>
           <Route path="" element={<ProfilePosts />} />
           <Route path="likes" element={<ProfilePosts />} />
-          <Route path="bookmarks" element={<ProfilePosts />} />
         </Route>
         <Route path="/explore" element={<Explore />} />
       </Route>
