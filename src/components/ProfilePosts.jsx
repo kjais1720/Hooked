@@ -11,7 +11,7 @@ import { Post, SkeletonLoader } from "components";
 export function ProfilePosts() {
   const { pathname } = useLocation();
   const { username } = useParams();
-  const { _id, bookmarks, likes } = useOutletContext();
+  const { _id, bookmarks, likes, isCurrentUserProfile } = useOutletContext();
   const { status } = useSelector((state) => state.posts);
   const userPosts = useSelector((state) => getUserPosts(state, _id));
   const userLikes = useSelector((state) => getUserLikes(state, likes || []));
@@ -53,6 +53,9 @@ export function ProfilePosts() {
     <section className="flex flex-col gap-4 p-4">
       <div className="flex gap-2">
         {profileSectionButtons.map(({ type, path, key }) => {
+          if(!isCurrentUserProfile && type==="Bookmarks" ){
+            return ''
+          }
           return (
             <Link
               key={key}
